@@ -1,0 +1,19 @@
+<div *ngIf="inited" class="modal fade" bsModal #staticModal="bs-modal" [config]="{backdrop: 'static'}" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button *ngIf="closeModal" type="button" class="close pull-right" aria-label="Close" (click)="staticModal.hide()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title pull-left">{{header}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">{{message}}</div>
+                <div class="text-center">
+                    <button *ngIf="yesBtn" style="margin:10px;" class="btn btn-blue" (click)="onYes()">{{yesTxt}}</button>
+                    <button *ngIf="noBtn" style="margin:10px;" class="btn btn-red" (click)="onNo()">{{noTxt}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

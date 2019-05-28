@@ -1,0 +1,82 @@
+@import "../../../_vars";
+
+#notes-wrapper {
+	
+	position: absolute;
+	overflow: hidden;
+	bottom: 0px;
+	top: 0;
+    left: 0;
+    width: 100%;
+    z-index: $notesIndex;
+    background-color:rgba(0, 0, 0, 0.5);
+
+	&.form-closed {
+		height: 0;
+		@include transition-delay(0.5s);
+		@include transition-property(height);
+	}
+
+	&.form-open {
+		height: 100%;
+	}
+}
+
+
+
+
+#notes-container {
+	position: absolute;
+	z-index: $notesIndex;
+	width: 100%;
+	@include transition-delay(0);
+	@include transition-duration(0.5s);
+	@include transition-property(bottom);
+
+	&.form-closed {
+		bottom: -500px;
+	}
+
+	&.form-open {
+		bottom: 0px;
+	}
+}
+
+#notes-form {
+	background-color: $dark-gray;
+	color: #fff;
+	padding: 20px;
+}
+
+.changes-key {
+	padding-right: 10px;
+}
+
+.form-textarea {
+    margin: 20px 0;
+    resize: none;
+}
+
+.btn-closeForm {
+	line-height: 0;
+	position: absolute;
+	top: 5px;
+	padding: 12px;
+	right: 5px;
+	&:active {
+		@include box-shadow(none); 
+	}
+}
+
+@media (min-width: 768px) {
+	#notes-container {
+		width: 50%;
+	}
+}
+
+@media (min-width: 1200px) {
+	#notes-container {
+		width: 41.5%;
+		left: 17%;
+	}
+}

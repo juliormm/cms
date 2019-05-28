@@ -1,0 +1,114 @@
+$primary-font: "Sentinel SSm A",
+"Sentinel SSm B",
+"Sanchez",
+serif;
+$secondary-font: "Whitney SSm A",
+"Whitney SSm B",
+"Open Sans",
+sans-serif;
+$dark-gray: #282828;
+$medium-gray: #dee1e5;
+$light-gray: #eceef0;
+$turquoise: #08bab5;
+$light-red: #d04040;
+$light-blue: #cfdbe6;
+// $orange: #df7b45;
+$demoIndex:99999;
+
+$topIndex: 2502;
+$loaderIndex:2501;
+$alertIndex:2500;
+$notesIndex: 1035;
+$headerIndex:1032;
+$btnApproval:1031;
+$navIndex: 1031;
+$bootIndex: 1030;
+$adIndex: 100;
+$contentIndex: 0;
+
+
+
+//colors
+
+$navy: #001F3F;
+$blue: #0074D9;
+$aqua: #7FDBFF;
+$teal: #39CCCC;
+$olive: #3D9970;
+$green: #2ECC40;
+$lime: #01FF70;
+$yellow: #FFDC00;
+$orange: #FF851B;
+$red: #FF4136;
+$fuchsia: #F012BE;
+$purple: #B10DC9;
+$maroon: #85144B;
+$white: #FFFFFF;
+$silver: #DDDDDD;
+$gray: #AAAAAA;
+$black: #111111;
+
+
+
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    border-radius: $radius;
+}
+
+@mixin column-rule($column-rule) {
+    -webkit-column-rule: $column-rule;
+    -moz-column-rule: $column-rule;
+    column-rule: $column-rule;
+}
+
+@mixin user-select($user-select) {
+    -webkit-user-select: $user-select;
+    -moz-user-select: $user-select;
+    -ms-user-select: $user-select;
+    user-select: $user-select;
+}
+
+@mixin transition-duration($transition-duration) {
+    -webkit-transition-duration: $transition-duration;
+    -moz-transition-duration: $transition-duration;
+    transition-duration: $transition-duration;
+}
+
+@mixin transition-property($transition-property) {
+    -webkit-transition-property: $transition-property;
+    -moz-transition-property: $transition-property;
+    transition-property: $transition-property;
+}
+
+@mixin transition-delay($transition-delay) {
+    -webkit-transition-delay: $transition-delay;
+    -moz-transition-delay: $transition-delay;
+    transition-delay: $transition-delay;
+}
+
+@mixin transition($args...) {
+    -webkit-transition: $args;
+    -moz-transition: $args;
+    -ms-transition: $args;
+    -o-transition: $args;
+    transition: $args;
+}
+
+@mixin opacity($opacity) {
+  opacity: $opacity;
+  $opacity-ie: $opacity * 100;
+  filter: alpha(opacity=$opacity-ie); //IE8
+}
+
+@mixin calc($property, $expression) {
+    #{$property}: -moz-calc(#{$expression});
+    #{$property}: -webkit-calc(#{$expression});
+    #{$property}: calc(#{$expression});
+}
+
+@mixin box-shadow($shadow) {
+    -webkit-box-shadow: $shadow;
+    -moz-box-shadow: $shadow;
+    box-shadow: $shadow;
+}

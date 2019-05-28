@@ -1,0 +1,12 @@
+@import "../../../_vars";
+
+.alert-base-position{
+	position:absolute;
+	right:0;
+	top:0;
+	z-index:$alertIndex;
+}
+
+.close{
+	outline:none;
+}

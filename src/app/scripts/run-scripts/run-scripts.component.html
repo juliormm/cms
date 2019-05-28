@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-md-4">
+  <h4>Previews</h4>
+    <div class="well">
+      <div class="form-group">
+        <button class="btn"
+          [disabled]="runningPreview"
+          (click)="runPreview('test')"
+          [ngClass]="{'btn-warning': runnigPreviewName == 'test', 'btn-success':!runningPreview}">Test Preview</button>
+        
+        <button class="btn"
+          [disabled]="validClientPreview || runningPreview"
+          (click)="runPreview('client')"
+          [ngClass]="{'btn-warning': runnigPreviewName == 'client', 'btn-danger': validClientPreview, 'btn-success':!runningPreview}">Client Preview</button>
+        
+      </div>
+      <p class="bg-warning" *ngIf="runningPreview">Running {{runnigPreviewName}} preview...</p>
+      <p class="bg-success" *ngIf="completePreview">Preview Completed</p>
+    </div>
+  </div>
+  <div class="col-md-4">
+  <h4>Contractor</h4>
+    <div class="well">
+      <div class="form-group">
+        <button class="btn btn-default" [disabled]="withContractor"
+        (click)="runContractor('send')"
+        [ngClass]="{'btn-success': !withContractor, 'btn-danger': withContractor, 'btn-warning': contractorInstruction == 'send'}">Send to Contractor</button>
+         <button class="btn btn-default" [disabled]="!withContractor"
+         (click)="runContractor('get')"
+         [ngClass]="{'btn-success': withContractor, 'btn-danger': !withContractor, 'btn-warning': contractorInstruction == 'get'}">Sync Back from Contractor</button>
+
+		
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+   <h4>Other</h4>
+	  <div class="well">
+	   	
+	  </div>
+	</div>
+
+
+</div>
+

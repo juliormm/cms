@@ -1,0 +1,20 @@
+
+ul.notification{
+	margin-left:10px;
+}
+
+.float-version{
+	position:fixed;
+	bottom:10px;
+	right:10px;
+	padding:5px;
+	color:#AAAAAA;
+}
+
+@media (min-width: 768px) {
+    .float-version{
+    	bottom:auto;
+    	top:10px;
+		right:10px;
+    }
+}

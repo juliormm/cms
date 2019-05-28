@@ -1,0 +1,19 @@
+<div [config]="{backdrop: 'static', show: true }" bsModal #modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title pull-left">{{dataInfo.title}}</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="_modalService.hideModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">{{dataInfo.message}}</div>
+                <div class="text-center">
+                    <button style="margin:10px;" class="btn btn-default" (click)="onYes()">Yes</button>
+                    <button style="margin:10px;" class="btn btn-default" (click)="onNo()">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

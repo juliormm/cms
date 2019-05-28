@@ -1,0 +1,37 @@
+@import "../../../_vars";
+.btn {
+    @include border-radius(0px);
+    width: 100%;
+    &:hover {
+        color: #fff;
+    }
+    &.modify {
+        display: none;
+    }
+}
+
+.btn-orange {
+    color: #fff;
+    background-color: $orange;
+    &:hover {
+        color: #fff;
+        background-color: darken($orange, 10%);
+    }
+    &:active {
+        color: #fff;
+        background-color: $orange;
+    }
+}
+
+@media (min-width: 768px) {
+    .btn {
+        &.modify {
+            display: block;
+            border-radius: 2px;
+            width: 150px;
+            padding: 6px 12px;
+            height: auto;
+            font-size: 14px;
+        }
+    }
+}

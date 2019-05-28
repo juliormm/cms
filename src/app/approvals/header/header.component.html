@@ -1,0 +1,16 @@
+<div id="approval-header" class="navbar-fixed-top">
+    <div class="row nomargin">
+        <div class="col-sm-6 text-left-sm text-center hidden-xs header-text header-title">
+            Creative Previews
+        </div>
+        <div class="col-sm-6 col-xs-10 text-right-sm text-center header-text header-version">
+            <div *ngIf="_shared.valid">
+                Preview Version: {{_shared.dData.rev}}
+            </div>
+        </div>
+        <button type="button" class="col-xs-2 text-center visible-xs btn btn-transparent btn-menu" [ngClass]="{'menu-open': menuOpen, 'menu-closed': !menuOpen}" (click)="onToggleNav()">
+            <span class="glyphicon glyphicon-menu-hamburger" ></span>
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+    </div>
+</div>

@@ -1,0 +1,147 @@
+<div class="panel panel-default">
+  <div class="panel-body" [ngClass]="bgColorClass">
+    <div class="form-group row" [formGroup]="creativeGroup">
+      <div class="col-sm-12 text-right" formGroupName="duplicate" *ngIf="showDuplicate">
+        <div class="form-inline">
+          <div class="checkbox">
+            <label>
+               <input type="checkbox" formControlName="active"> Duplicates
+            </label>
+          </div>
+          <div class="form-group" *ngIf="duplicateActive.value">
+            <select class="form-control" formControlName="times">
+              <option *ngFor="let num of [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]" [value]="num">
+                {{num}}
+              </option>
+            </select>
+            <!-- <input type="number" class="form-control" formControlName="times" placeholder="3"> -->
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label>Type</label>
+          <select class="form-control" formControlName="type">
+            <option value="null" disabled selected>Select From list</option>
+            <option *ngFor="let item of crvTypeSer.CreativeTypesList" [value]="item.name">{{item.name}}</option>
+          </select>
+        </div>
+        <div *ngIf="showOptions">
+          <div formGroupName="options">
+            <div class="row">
+              <div class="checkbox">
+                <div class="col-xs-6 col-md-4" *ngIf="typeController.value == 'RichMedia'">
+                  <label>
+                    <input type="checkbox" name="option_list" formControlName="video">Video</label>
+                </div>
+                <div class="col-xs-6 col-md-4" *ngIf="typeController.value == 'RichMedia'">
+                  <label>
+                    <input type="checkbox" name="option_list" formControlName="map">Map</label>
+                </div>
+                <div class="col-xs-6 col-md-4" *ngIf="typeController.value == 'RichMedia'">
+                  <label>
+                    <input type="checkbox" name="option_list" formControlName="carousel">Carousel</label>
+                </div>
+                <div class="col-xs-6 col-md-4" *ngIf="typeController.value == 'RichMedia'">
+                  <label>
+                    <input type="checkbox" name="option_list" formControlName="expandable">Expandable</label>
+                </div>
+                <div class="col-xs-6 col-md-4" *ngIf="typeController.value == 'RichMedia'">
+                  <label>
+                    <input type="checkbox" name="option_list" formControlName="fmcontent">FM Content</label>
+                </div>
+                <div class="col-xs-6 col-md-4" *ngIf="typeController.value == 'RichMedia'">
+                  <label>
+                    <input type="checkbox" name="option_list" formControlName="pushdown">Push Down</label>
+                </div>
+                <div class="col-xs-6 col-md-4" *ngIf="typeController.value == 'RichMedia'">
+                  <label>
+                    <input type="checkbox" name="option_list" formControlName="form">Form</label>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                  <label>
+                    <input type="checkbox" name="option_list" formControlName="clicktocall">Click To Call</label>
+                </div>
+                <div class="col-xs-6 col-md-4">
+                  <label>
+                    <input type="checkbox" name="option_list" formControlName="custom">Custom</label>
+                </div>
+                <!--  <div class="col-xs-6 col-md-4">
+                                    <label>
+                                        <input type="checkbox" name="option_list" formControlName="location">Location</label>
+                                </div> -->
+                <!-- <div class="col-xs-6 col-md-4">
+                                    <label>
+                                        <input type="checkbox" name="option_list" formControlName="carousel">Carousel</label>
+                                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3" >
+        <div class="form-group size-group" formGroupName="size">
+          <label>Size</label>
+          <div class="form-group">
+            <select class="form-control" formControlName="std_size">
+              <option [value]="null" disabled selected>Select Size</option>
+              <option *ngFor="let item of activeSizes" [value]="item.size">{{item.size}} <span *ngIf="item.extra">{{item.extra}}</span></option>
+              <option value="custom">custom</option>
+            </select>
+          </div>
+          <!-- {{ showCustomSizes }} -->
+          <div class="custom-size" *ngIf="showCustomSizes">
+            <div class="form-inline">
+              <label *ngIf="showOptions && showExpandable">Collapse</label>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="WxH" formControlName="custom_size">
+              </div>
+              <div class="form-msg error-message" *ngIf="customSize.invalid && customSize.dirty">
+                <div *ngIf="customSize.hasError('required') && customSize.dirty">Requiered field</div>
+                <div *ngIf="customSize.hasError('tooBig') && customSize.dirty">Width or Height are too big</div>
+                <div *ngIf="customSize.hasError('format') && customSize.dirty">not right format: 300x250</div>
+              </div>
+            </div>
+            <div *ngIf="showOptions && showExpandable">
+              <div class="form-inline">
+                <label>Expanded</label>
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="WxH" formControlName="expand_size">
+                </div>
+                <div class="form-msg error-message" *ngIf="expandSize.invalid && expandSize.dirty">
+                  <div *ngIf="expandSize.hasError('exp_small') && expandSize.dirty">Width or Height of expandable is smaller then collapse</div>
+                  <div *ngIf="expandSize.hasError('tooBig') && expandSize.dirty">Width or Height are too big</div>
+                  <div *ngIf="expandSize.hasError('format') && expandSize.dirty">Not right format: 300x250</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3" *ngIf="showVersionName">
+        <div class="form-group">
+          <label>Version Name</label>
+          <input type="text" class="form-control" formControlName="versionName" [placeholder]="versionNamePlaceHolder" (blur)="validateFocus()">
+         <div class="form-msg error-message" *ngIf="versionNameShowOptional">
+              <span>No duplicates found, clear field to remove version name</span>
+         </div>
+          <div class="form-msg error-message" *ngIf="versionNameController.invalid">
+             <!-- <div>{{versionNameController.errors | json}}</div> -->
+            <span *ngIf="versionNameController.hasError('invalidCharacters')">Remove Characters [ {{ versionNameController.errors.invalidCharacters.value[0]}} ] or spaces</span>
+            <span *ngIf="versionNameController.hasError('notUnique')">Not unique name</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <button type="button" class="btn btn-danger pull-right" (click)="removed.emit(index)"><span class="glyphicon glyphicon-remove"></span></button>
+
+            <button type="button" class="btn pull-right btn-padding" [ngClass]="{'btn-warning' : creativeGroup.valid }" [disabled]="creativeGroup.invalid" (click)="duplicateEvent.emit(index)" > <span class="glyphicon glyphicon-duplicate"></span> </button>
+
+      </div>
+    </div>
+  </div>
+</div>

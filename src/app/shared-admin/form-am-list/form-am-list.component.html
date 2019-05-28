@@ -1,0 +1,29 @@
+<div class="form-group" [formGroup]="fGroup">
+    <label>{{title}}</label>
+    <input type="text" class="form-control" formControlName="name"
+    [typeahead]="activeList"
+    (typeaheadOnSelect)="nameSelectedHandle($event)"
+    [typeaheadMinLength]="0"
+    [typeaheadWaitMs]="400"
+    [typeaheadOptionsLimit]="7"
+    [typeaheadOptionField]="'name'">
+    <div class="form-msg">
+        <div *ngIf="controlName.errors" class="bg-danger">
+            <div *ngIf="controlName.errors.fGroup && controlName.dirty">
+                <span class="glyphicon glyphicon-remove"></span>
+                <span>You must select from the list</span>
+            </div>
+        </div>
+ <!--        <div *ngIf="controlName.value == '' && controlName.dirty && intialName" class="bg-success">
+            <span class="glyphicon glyphicon-pencil"></span>
+            <span>Name will be remove from campaign</span>
+        </div>
+        <div *ngIf="!controlName.errors && controlName.dirty && intialName && (controlName.value != intialName)" class="bg-success">
+            <span class="glyphicon glyphicon-pencil"></span>
+            <span>Name will be updated</span>
+        </div> -->
+    </div>
+    <input type="hidden" formControlName="email">
+    <input type="hidden" formControlName="id">
+    <input type="hidden" formControlName="phnx_id">
+</div>

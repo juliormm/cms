@@ -1,0 +1,43 @@
+<div id="preview-panel" class="full-height row nomargin">
+    <div class="full-height col-xs-12 nopadding">
+        <div class="row header-title" *ngIf="_shared.valid">
+            <div class="col-sm-offset-1 col-sm-6 text-align nopadding">
+                <div>
+                    <span class="primary-font italic campaign-info-key hidden-xs">Client Name:</span>
+                    <span class="secondary-font">{{_shared.dData.client_name}}</span>
+                </div>
+                <div>
+                    <span class="primary-font italic campaign-info-key hidden-xs">Campaign Name:</span>
+                    <span class="secondary-font">{{_shared.dData.campaign_name}}</span>
+                </div>
+            </div>
+            <div class="col-sm-4 text-align">
+                <div>
+                    <div class="inline-block primary-font italic campaign-info-key">Review Status:</div>
+                    <div *ngIf="crvInfo" class="inline-block secondary-font text-uppercase semibold">
+                        <span [ngClass]="{'status-approved':crvInfo.status == 'approved', 'status-changes':crvInfo.status == 'changes', 'status-pending':crvInfo.status == 'pending'}">{{crvInfo.status}}</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="inline-block primary-font italic campaign-info-key">Date:</div>
+                    <div class="inline-block secondary-font">{{_shared.dData.rev_date | date}}</div>
+                </div>
+            </div>
+        </div>
+        <status-btns class="hidden-xs" *ngIf="!_shared.locked"></status-btns>
+        <div class="full-height row nomargin">
+            <div [ngSwitch]="pageSelected" class="col-lg-offset-1 col-lg-10" id="preview-page">
+                <preview-instructions *ngSwitchCase="'intro'"></preview-instructions>
+                <faux-page *ngSwitchCase="'faux'">Loading previews...</faux-page>
+                <div *ngSwitchCase="'blank'" class="row">
+                    <div class="paddingpage">
+                        <preview-ad [creative]=crvInfo [server]=serverURL></preview-ad>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-offset-1 col-lg-10" *ngIf="pageSelected=='intro'">
+                <small> <sup>*</sup>If you do not press the <span class="orange"><strong>Submit All</strong></span> button your creative could be delayed.</small>
+            </div>
+        </div>
+    </div>
+</div>

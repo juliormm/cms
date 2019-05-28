@@ -1,0 +1,18 @@
+<div id="status-btns">
+    <div class="row nomargin" *ngIf="activeCrv && !activeCrv.locked">
+        <div class="col-xs-4 col-sm-4 col-lg-2 nopadding" [ngClass]="{'col-sm-offset-2 col-lg-offset-4':!_shared.showSubmit, 'col-sm-offset-0 col-lg-offset-3':_shared.showSubmit}">
+            <button type="button" class="btn btn-approved btn-blue center-block"  [attr.disabled]="!activated ? true : null"  (click)="onApprove()">{{btnApprove}}</button>
+        </div>
+        <div class="col-xs-4 col-sm-4  col-lg-2 nopadding">
+            <button type="button" class="btn btn-changes btn-red center-block" [attr.disabled]="disabledChanges ? true : null" (click)="onNotes()"><span class="desktop">{{btnChange}}</span> Change</button>
+        </div>
+        <div class="col-sm-4 col-lg-2 nopadding hidden-xs" *ngIf="_shared.showSubmit">
+            <approval-submit-revision [insideBtn]="true"></approval-submit-revision>
+        </div>
+    </div>
+    <div class="row nomargin" *ngIf="activeCrv && activeCrv.locked">
+        <div class="col-xs-8 col-sm-4 col-lg-2  col-sm-offset-4 col-lg-offset-5 nopadding ">
+            <p class="text-center pre-approved">Previously Approved</p>
+        </div>
+    </div>    
+</div>

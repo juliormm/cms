@@ -1,0 +1,150 @@
+@import "../../../_vars";
+
+#approval-nav {
+	
+	padding-bottom: 40px;
+	background-color: $light-gray;
+	position: fixed;
+	width: 100%;
+	@include calc( height, '100% - 40px');
+	// height: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
+	text-align: left;
+	z-index: $navIndex;
+	@include transition-duration(0.5s);
+	@include transition-property(top);
+
+	&.sidebar-open {
+		top: 40px;
+	}
+
+	&.sidebar-closed {
+		@include calc( top, '40px - 100%');
+	}
+
+}
+
+.nav-wrapper{
+	padding-left:20px;
+}
+
+.sizes-selected {
+    font-weight: bold;
+    background-color: $light-blue;
+}
+
+.sb-heading {
+	background-color: $medium-gray;
+	line-height: 40px;
+	padding-left: 15px;
+	@include transition-duration(0.2s);
+}
+
+.sb-sizes {
+	li {
+		padding-top:10px;
+		padding-bottom:10px;
+		line-height: 1.3em;
+		border-top: 1px solid $light-blue;
+		cursor: pointer;
+		padding-left: 15px;
+		@include transition-duration(0.2s);
+		@include user-select(none);
+
+		.custom_name {
+			color:#828282;
+			// font-style: italic;
+			font-style: oblique;
+			font-size: .8em;
+		}
+	}
+
+	li:before {
+		content: '';
+		display: inline-block;
+		width: 8px;
+		height: 8px;
+		border: 1px solid $dark-gray;
+		margin-right: 6px; 
+		@include border-radius(50%);
+	}
+
+	li:hover {
+		background-color: $light-blue;
+	}
+
+	li:active {
+		background-color: lighten($light-blue, 3%);
+	}
+}
+
+.sb-sizes-pending:before {
+	background-color: #fff;
+}
+
+.sb-sizes-approved:before {
+	background-color: $turquoise;
+}
+
+.sb-sizes-changes:before {
+	background-color: $light-red;
+}
+
+.sb-sizes-last {
+	border-bottom: 1px solid $light-blue;
+}
+
+.sb-sizes-key {
+	padding: 40px 0 0 0;
+	text-align: left;
+	li {
+		line-height: 34px;
+		padding-left: 15px;
+		@include transition-duration(0.2s);
+	}
+	
+	li:before {
+		content: '';
+		display: inline-block;
+		width: 8px;
+		height: 8px;
+		border: 1px solid $dark-gray;
+		margin-right: 6px; 
+		@include border-radius(50%);
+	}
+}
+
+@media (min-width: 768px) {
+    #approval-nav {
+		width: 27%;
+		@include calc( height, '100% - 151px');
+		top: 60px;
+		text-align: left;
+
+		&.sidebar-open {
+			top: 60px;
+		}
+
+		&.sidebar-closed {
+			top: 60px;
+		}
+    }
+
+    .nav-items{
+		padding-top: 40px;
+	}
+}
+
+@media (min-width: 992px) {
+    #approval-nav {
+		width: 23%;
+    }
+}
+
+@media (min-width: 1200px) {
+	#approval-nav {
+		width: 17%;
+		@include calc( height, '100% - 60px');
+    }
+}

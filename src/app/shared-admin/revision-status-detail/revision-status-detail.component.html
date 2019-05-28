@@ -1,0 +1,95 @@
+<div class="panel" [ngClass]="setPanelColor()">
+  <div class="panel-heading" (click)="startCollapsed = !startCollapsed">
+    <div class="row">
+      <div class="col-xs-11">
+        <strong>Revision #{{revisionData.revision}} {{revisionData.global_status.toUpperCase()}} </strong>
+      </div>
+      <div class="col-xs-1">
+        <strong><span class="glyphicon " [ngClass]="{'glyphicon-minus':!startCollapsed, 'glyphicon-plus':startCollapsed}"></span></strong>
+      </div>
+    </div>
+  </div>
+  <div class="panel-body" [collapse]="startCollapsed">
+    <div class="row">
+      <div class="col-sm-6" *ngIf="duplicateCreative && logedUser.name == 'julio.chacon'">
+        <div class="form-group">
+          <div class="btn-group" dropdown>
+            <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
+              Duplicate creative <span class="caret"></span>
+            </button>
+            <ul *dropdownMenu class="dropdown-menu" role="menu">
+              <li role="menuitem"><a class="dropdown-item" (click)="onAddCreative(item)" *ngFor="let item of creativeList"> {{item.type}} - {{item.size}} - {{item.name}}</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6" *ngIf="showLockPreview">
+        <label> Lock Revision?
+          <input type="checkbox" [(ngModel)]="revisionData.submitted" (change)="onLockRevisionChange($event.target.checked)">
+        </label>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered" *ngFor="let typ of revisionData.creatives; let typeIndex = index">
+        <thead>
+          <tr>
+            <th class="" *ngIf="showIncludeCrv">Include</th>
+            <th class="col-name">{{typ.tag}}</th>
+            <th class="col-status" *ngIf="!changeStatus">Status</th>
+            <th class="col-status" *ngIf="changeStatus">Set Status</th>
+            <th class="" *ngIf="showLockCrv"> Locked </th>
+            <th class="col-params" *ngIf="urlParams">url Params</th>
+            <th class="" *ngIf="customName">Custom Name</th>
+            <th class="col-notes"> Client Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let crv of typ.items; let crvIndex = index">
+            <td class="text-center" *ngIf="showIncludeCrv">
+              <input type="checkbox" [(ngModel)]="crv.include" name="include" (change)="onChangeCrvData($event.target.name, $event.target.checked, crv.prv_crv_id)" [disabled]="revisionData.submitted">
+            </td>
+            <td>
+              <a (click)="showPreview(crv, prevTemp)"> {{ crv.size }} <span *ngIf="typ.versions"> - {{ _shared.creativeNameDisplay(crv) }}</span> </a>
+            </td>
+            <td *ngIf="!changeStatus" [ngClass]="_shared.getColorClass(crv.status)"> {{ crv.status }} </td>
+            <td *ngIf="changeStatus">
+              <select class="form-control" [(ngModel)]="crv.status" name="status" (change)="onChangeCrvData($event.target.name, $event.target.value, crv.prv_crv_id)" [ngClass]="_shared.getColorClass(crv.status)" [disabled]="revisionData.submitted">
+                <option value="{{_shared.PENDING}}">{{_shared.PENDING}}</option>
+                <option value="{{_shared.CHANGES}}">{{_shared.CHANGES}}</option>
+                <option value="{{_shared.APPROVED}}">{{_shared.APPROVED}}</option>
+                <!-- <option value="{{_shared.INITIATED}}" disabled>{{_shared.INITIATED}}</option> -->
+
+              </select>
+            </td>
+            <td class="text-center" *ngIf="showLockCrv">
+              <input type="checkbox" [(ngModel)]="crv.locked" name="locked" (change)="onChangeCrvData($event.target.name, $event.target.checked, crv.prv_crv_id)" [disabled]="revisionData.submitted">
+            </td>
+            <td *ngIf="urlParams">
+              <input class="form-control" [(ngModel)]="crv.url_params" name="url_params" type="text" (blur)="onChangeCrvData($event.target.name, $event.target.value, crv.prv_crv_id)" (focus)="onFocus(crv, $event.target.name)" [disabled]="revisionData.submitted">
+            </td>
+            <td *ngIf="customName">
+              <input class="form-control" [(ngModel)]="crv.custom_name" type="text" (blur)="onChangeCrvData($event.target.name, $event.target.value, crv.prv_crv_id)" name="custom_name" (focus)="onFocus(crv, $event.target.name)" [disabled]="revisionData.submitted"> </td>
+            <td>
+              <textarea class="form-control" rows="5" [ngModel]="crv.client_notes" readonly></textarea>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!--     <div class="well" *ngIf="prevCreative">
+      <button (click)="closePreview()" class="pull-right btn btn-danger"><span class='glyphicon glyphicon-remove-sign lg-glyph'></span></button>
+      <preview-ad [creative]="prevCreative"></preview-ad>
+    </div> -->
+  </div>
+</div>
+<ng-template #prevTemp>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left"><span *ngIf="prevCreative"> {{prevCreative.size}}</span> <span *ngIf="prevCreative.name"> - {{prevCreative.name}}</span></h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <preview-ad *ngIf="prevCreative" [creative]="prevCreative" [server]=getServerPath()></preview-ad>
+  </div>
+</ng-template>

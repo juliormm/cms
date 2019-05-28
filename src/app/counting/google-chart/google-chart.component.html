@@ -1,0 +1,134 @@
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading text-uppercase">Creatives by Designer</div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-xs-12 col-12 col-md-4 form-group">
+          <input class="form-control" #drp="bsDaterangepicker" bsDaterangepicker [(ngModel)]="bsRangeValue" (bsValueChange)="onDateRangeChange($event)">
+        </div>
+        <div class="col-xs-12 col-12 col-md-3 form-group">
+          <button class="btn btn-success" (click)="drp.toggle()" [attr.aria-expanded]="drp.isOpen">Select Range</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4" *ngFor="let item of desigenerCount">
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">{{item.key}}</h3>
+            </div>
+            <div class="panel-body">
+              <ul class="list-group">
+              <li class="list-group-item"> Standard <span class="badge">{{item.types.Standard}}</span></li>
+              <li class="list-group-item"> Static <span class="badge">{{item.types.Static}}</span></li>
+              <li class="list-group-item"> RichMedia <span class="badge">{{item.types.RichMedia}}</span></li>
+              <li class="list-group-item"> Email <span class="badge">{{item.types.Email}}</span></li>
+              <li class="list-group-item"> <strong>Campaigns:</strong> {{item.campaigns.length}}</li>
+              <li class="list-group-item" *ngIf="item.key == 'Review'">
+                <span *ngFor="let id of item.campaigns"> <a [routerLink]="['/dashboard/production/campaign/', id]" target="_blank">{{id}}</a> </span>
+
+              </li>
+            </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading text-uppercase">Annual creatives by type</div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="form-group">
+            <select (change)="onRequestDates($event.target.value)" class="form-control">
+              <option disabled="" selected="" value="null">
+                Select Year
+              </option>
+              <option *ngFor="let item of yearList" [ngValue]="item">
+                {{item}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-xs-3 col-sm-2 col-md-1">
+          <div class="checkbox">
+            <label>
+              <input [(ngModel)]="types[0]" name="RichMedia" type="checkbox" (change)="onTypeChange($event)">RichMedia</label>
+          </div>
+        </div>
+        <div class="col-xs-3 col-sm-2 col-md-1">
+          <div class="checkbox">
+            <label>
+              <input [(ngModel)]="types[1]" name="Standard" type="checkbox" (change)="onTypeChange($event)">Standard</label>
+          </div>
+        </div>
+        <div class="col-xs-3 col-sm-2 col-md-1">
+          <div class="checkbox">
+            <label>
+              <input [(ngModel)]="types[2]" name="Static" type="checkbox" (change)="onTypeChange($event)">Static</label>
+          </div>
+        </div>
+        <div class="col-xs-3 col-sm-2 col-md-1">
+          <div class="checkbox">
+            <label>
+              <input [(ngModel)]="types[3]" name="Email" type="checkbox" (change)="onTypeChange($event)">Email</label>
+          </div>
+        </div>
+        <div class="col-xs-3 col-sm-2 col-md-1">
+          <div class="checkbox">
+            <label>
+              <input [(ngModel)]="types[4]" name="ThirdParty" type="checkbox" (change)="onTypeChange($event)">ThirdParty</label>
+          </div>
+        </div>
+        <div class="col-xs-3 col-sm-2 col-md-1">
+          <div class="checkbox">
+            <label>
+              <input [(ngModel)]="types[5]" name="MEG" type="checkbox" (change)="onTypeChange($event)">MEG</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xm-12">
+          <google-chart (charterror)="error($event)" (chartready)="ready($event)" (chartselect)="select($event)" [data]="yearTypeCrvs">
+          </google-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading text-uppercase">Total Creatives by Year</div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-xm-12">
+          <google-chart (charterror)="error($event)" (chartready)="ready($event)" (chartselect)="select($event)" [data]="yearsOverlaid">
+          </google-chart>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading text-uppercase">Markets by Year</div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="form-group">
+            <select (change)="onRequestDatesMarkets($event.target.value)" class="form-control">
+              <option disabled="" selected="" value="null">
+                Select Year
+              </option>
+              <option *ngFor="let item of yearList" [ngValue]="item">
+                {{item}}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            Total - {{marketsTotal}}
+          </div>
+        </div>
+        <div class="col-sm-9">
+          <google-chart (charterror)="error($event)" (chartready)="ready($event)" (chartselect)="select($event)" [data]="marketsYear">
+          </google-chart>
+        </div>
+      </div>
+    </div>
+  </div>

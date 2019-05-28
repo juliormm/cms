@@ -1,0 +1,68 @@
+@import "../../../_vars";
+#approval-footer {
+    background-color: #fff;
+    border-top: 1px solid $dark-gray;
+}
+
+.arrow-position {
+    margin-top: 32px;
+}
+
+.show-arrows {
+    display: none;
+    &.active {
+        display: block;
+    }
+}
+
+.footer-text {
+    line-height: 30px;
+}
+
+.btn-arrow {
+    background-color: #959595;
+    @include border-radius(0px);
+    width: 100%;
+    height: 32px;
+    line-height: 1;
+    color: #fff;
+    &:hover {
+         color: #fff;
+        background-color: $dark-gray;
+    }
+    &:active {
+         color: #fff;
+        background-color: #959595;
+    }
+}
+
+.custom_name {
+            color:#828282;
+            // font-style: italic;
+            font-style: oblique;
+            font-size: .8em;
+        }
+
+@media (min-width: 768px) {
+    #approval-footer {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        height: auto;
+    }
+    .btn-arrow {
+        @include border-radius(2px);
+        width: 45px;
+        height: 45px;
+    }
+
+    .glyphicon{
+        font-size:25px;
+    }
+}
+
+@media (min-width: 1200px) {
+    #approval-footer {
+        width: 83%;
+        left: 17%;
+    }
+}

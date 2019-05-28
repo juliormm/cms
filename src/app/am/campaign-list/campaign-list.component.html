@@ -1,0 +1,25 @@
+<div class="container">
+    <div *ngIf="inited">
+        <h2>{{ _shared.fullData.am_name }}'s Campaigns</h2>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-inverse">
+                <tr>
+                    <th style="width:70%;">Campaign</th>
+                    <th style="width:15%;">Rev #</th>
+                    <th style="width:15%;">Rev Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let camp of _shared.fullData.campaigns; let i=index">
+                    <td><a routerLink="{{camp.campaign_id}}">{{camp.campaign_name}}</a> </td>
+                    <td> {{camp.revisions.revision}} </td>
+                    <td [ngClass]="setClassStatus(camp.revisions.global_status)"> {{camp.revisions.global_status}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="!inited">
+        {{message}}
+    </div>
+    <router-outlet></router-outlet>
+</div>

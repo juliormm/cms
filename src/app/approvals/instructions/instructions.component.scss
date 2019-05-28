@@ -1,0 +1,46 @@
+@import "../../../_vars";
+
+.title{
+	color: $dark-gray;
+    font-family: $primary-font;
+    text-transform:uppercase;
+    margin-bottom:20px;
+}
+
+ul.bullets {
+	padding-left:15px;
+	font-family: $secondary-font;
+	li{
+		margin-bottom:25px;
+	}
+}
+
+li > p {
+	line-height:25px;
+}
+
+.approve{
+	color:$white;
+	margin: 0 0 10px;
+	background-color: $turquoise;
+	padding:4px;
+}
+
+.changes{
+	color:$white;
+	margin: 0 0 10px;
+	background-color: $light-red;
+	padding:4px;
+}
+
+.orange{
+	color:$white;
+	margin: 0 0 10px;
+	background-color: $orange;
+	padding:4px;
+}
+
+.end-page{
+	margin-bottom:30px;
+	margin-top:30px;
+}

@@ -1,0 +1,201 @@
+@import "../../../_vars";
+.container-fluid {
+    // padding-right: 10px;
+    // padding-left: 10px;
+}
+
+.btn {
+    margin: 3px;
+}
+
+:host /deep/ .tooltip-inner {
+    max-width: 100%;
+}
+
+div.dropdown-item {
+    padding-left: 10px;
+}
+
+.submenu-tools{
+    select.form-control {
+        height: 30px;
+    }
+
+    input.form-control {
+        height: 30px;
+    }
+    .btn{
+        padding:4px 12px;
+    }
+
+    .btn.top-tool{
+        padding:5px 12px;
+    }
+
+
+}
+
+td.date{
+    &.due-yellow {
+        background-color: #f3f2b0;
+    }
+
+    &.due-orange {
+        background-color: #f3d4b0;
+    }
+
+    &.due-red {
+        background-color: #f3b0b0;
+    }
+}
+
+td.danger.due_today {
+    color:red;
+}
+
+.well {
+    margin: 0;
+}
+
+.well .btn {
+    margin: 0;
+}
+
+.checkbox {
+    display: inline-block;
+}
+
+.hidden-row {
+    color: #999999;
+    background-color: #e5e5e5;
+    a {
+        color: #999999;
+        &.btn-primary {
+            background-color: lighten(#337ab7, 10%);
+            color: #999999;
+        }
+        &.btn-info {
+            background-color: lighten(#5bc0de, 10%);
+            color: #999999;
+        }
+    }
+    select {
+        color: #999999;
+        background-color: transparent;
+    }
+    .table {
+        background-color: transparent;
+    }
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+    &.hidden-row {
+        color: #999999;
+        background-color: #e5e5e5;
+        a {
+            color: #999999;
+            &.btn-primary {
+                background-color: lighten(#337ab7, 10%);
+                color: #999999;
+            }
+            &.btn-info {
+                background-color: lighten(#5bc0de, 10%);
+                color: #999999;
+            }
+        }
+        select {
+            color: #999999;
+        }
+    }
+}
+
+table.production {}
+
+table.production th.campaign {
+    min-width: 100px;
+}
+
+table.production div.campaign-name {
+    min-width: 100px;
+    max-width: 300px;
+    word-wrap: break-word;
+}
+
+
+table.production th.camp-index {
+    width: 30px;
+}
+
+table.production td.date {
+    min-width: 110px;
+}
+
+table.production th.camp-notes {
+    min-width: 300px;
+}
+
+table.production th.camp-notes-lg {
+    min-width: 600px;
+}
+
+table.production th.camp-team {
+    width: 430px;
+}
+
+table.production th.camp-status {
+    min-width: 150px;
+}
+
+table.production th.camp-links {
+    // min-width: 100px;
+}
+
+table.production th.camp-revs {
+    // min-width: 130px;
+}
+
+table.designer {
+    // width:395px;
+}
+
+table.designer td.name {
+    width: 50%;
+}
+
+table.designer td.status {
+    width: 50%;
+}
+
+
+select {
+    &.form-control {
+        height: 30px;
+        // color: $silver;
+    }
+}
+
+.assigned {
+    @include column-rule(#444);
+}
+
+.unassigned {
+    color: #000000;
+}
+
+.force-inline .form-group {
+    display: inline-block;
+}
+
+.force-inline select.form-control {
+    width: auto;
+}
+
+
+/* Small devices (tablets, 768px and up) */
+
+@media (min-width: 768px) {
+    .container-fluid {
+        padding-right: 30px;
+        padding-left: 30px;
+    }
+}

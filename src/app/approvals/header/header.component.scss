@@ -1,0 +1,58 @@
+@import "../../../_vars";
+
+#approval-header {
+	color: #fff;
+	background-color: $dark-gray;
+	z-index:$headerIndex;
+}
+
+.header-text {
+    line-height: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.header-title {
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.header-version {
+	letter-spacing: 3px;
+	text-transform: uppercase;
+}
+
+.btn-menu {
+	top: 5px;
+}
+
+.menu-closed {
+	.glyphicon-menu-hamburger {
+		display: inline-block;
+	}
+	.glyphicon-remove {
+		display: none;
+	}
+}
+
+.menu-open {
+	.glyphicon-remove {
+		display: inline-block;
+	}
+	.glyphicon-menu-hamburger {
+		display: none;
+	}
+}
+
+@media (min-width: 768px) {
+    .header-text {
+	    line-height: 60px;
+	    margin: 0px;
+	}
+
+	.header-version {
+		letter-spacing: normal;
+		text-transform: none;
+		font-style: italic;
+	}
+}

@@ -1,0 +1,57 @@
+<lin-loading></lin-loading>
+<nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" (click)="toggleState()">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <span class="navbar-brand"><span class="desktop">{{userInfo.app_metadata.user}}</span> <span class="glyphicon glyphicon-user"></span></span>
+    </div>
+    <div class="collapse navbar-collapse" [ngClass]="{ 'in': isIn }">
+      <ul class="nav navbar-nav">
+        <li routerLinkActive="active" *ngIf="userInfo.app_metadata.is_admin || userInfo.app_metadata.group == 'hyfn-creative'">
+          <a routerLink="production/queue" class="navbar-link" (click)="toggleState()">Queue <span class="label label-danger" *ngIf="itemsInQueue > 0">{{itemsInQueue}}</span></a>
+        </li>
+        <li routerLinkActive="active">
+          <a routerLink="production/list" class="navbar-link" (click)="toggleState()">Production</a>
+        </li>
+        <li routerLinkActive="active" *ngIf="userInfo.app_metadata.is_admin || userInfo.app_metadata.group == 'hyfn-creative'">
+          <a routerLink="new" class="navbar-link" (click)="toggleState()">Job Start</a>
+        </li>
+        <li class="dropdown" dropdown routerLinkActive="active" *ngIf="userInfo.app_metadata.is_admin || userInfo.app_metadata.group == 'hyfn-creative'">
+          <a dropdownToggle type="button" class="dropdown-toggle">Data <span class="caret"></span></a>
+          <ul *dropdownMenu class="dropdown-menu" role="menu" routerLinkActive="active">
+            <li role="menuitem" routerLinkActive="active"><a class="dropdown-item" routerLink="data/charts" (click)="toggleState()">Charts</a></li>
+            <li role="menuitem" routerLinkActive="active"><a class="dropdown-item" routerLink="data/financial" (click)="toggleState()">Financial</a></li>
+          </ul>
+        </li>
+        <li routerLinkActive="active" *ngIf="userInfo.app_metadata.is_admin || userInfo.app_metadata.group == 'hyfn-creative'">
+          <a routerLink="manage" class="navbar-link" (click)="toggleState()">Manage DB</a>
+        </li>
+      </ul>
+      <!--  <form class="navbar-form navbar-left">
+                <search-data class="navbar-btn"></search-data>
+            </form> -->
+      <ul class="nav navbar-nav navbar-left notification" *ngIf="_notify.notifications.length > 0">
+        <li>
+          <button (click)="toggleNotifications()" class="btn btn-danger navbar-btn"><span class="badge">{{_notify.notifications.length}}</span></button>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <button type="button" class="btn btn-danger navbar-btn" (click)="logout()">Log out</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="float-version">
+  v. {{appVersion}}
+</div>
+<router-outlet></router-outlet>
+<modal-loading></modal-loading>
+<app-lin-alert></app-lin-alert>
+<lin-notifications></lin-notifications>

@@ -1,0 +1,225 @@
+<div class="page-header">
+  <div class="container-fluid">
+    <div class="row" *ngIf="showPage">
+      <div class="col-xs-12">
+        <div id="admin-block" *ngIf="userInfo.app_metadata.is_admin">
+              <app-admin-tools></app-admin-tools>
+        </div>
+        <div id="base-block" class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="">Campaign Info</h3>
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="well">
+                  <p><strong>Client Name: </strong> {{_shared.data.client.client_name}}</p>
+                  <p><strong>Campaign Name: </strong> {{_shared.data.campaign_name}}</p>
+                  <p><strong>Server Name: </strong>{{_shared.data.server_name}}</p>
+                  <p *ngIf="_shared.data.owner != 'LIN'"><strong>Service Type:</strong> {{_shared.data.owner}}</p>
+                </div>
+              </div>
+              <div class="col-md-3 col-lg-2">
+                <div class="well">
+                  <p><strong>Account Manager </strong></p>
+                  <p>{{_shared.data.am.first_name}} {{_shared.data.am.last_name}}</p>
+                  <p>{{_shared.data.am.email}}</p>
+                </div>
+              </div>
+              <div class="col-md-3 col-lg-2">
+                <div class="well">
+                  <p><strong>Account Executvie </strong></p>
+                  <ng-container *ngIf="peopleIsValid(_shared.data.ae)">
+                    <p>{{_shared.data.ae.name}}</p>
+                    <p>{{_shared.data.ae.email}}</p>
+                  </ng-container>
+                </div>
+              </div>
+              <div class="col-md-1">
+                <button class="btn btn-sm btn-warning" [routerLink]="['/dashboard/manage/edit', _shared.data.campaign_id]" *ngIf="userInfo.app_metadata.group != 'theorem-creative'">Edit Campaign</button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="well">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <h3>Production</h3>
+                    </div>
+                    <div class="col-sm-6 text-right" *ngIf="userInfo.app_metadata.group != 'theorem-creative'">
+                      <div *ngIf="_shared.data.tw_id != 0; else noTeamworkProject">
+                        <a class="btn btn-info" href="http://rmm.companyworkflow.com/#/projects/{{_shared.data.tw_id}}/overview/summary " target="_blank ">Teamwork</a>
+                      </div>
+                      <ng-template #noTeamworkProject>
+                          <button class="btn btn-info" title="No associated Teamwork project"disabled>Teamwork</button>
+                      </ng-template>
+                    </div>
+                  </div>
+                  <div *ngIf="_shared.data.archived" class="warning-padding bg-red">
+                    <h3>This campaign is archived</h3>
+                    <p>You can view the details, but this module is intentended to be used when the campaign is active.</p>
+                  </div>
+                  <!-- <div class="row"> -->
+                  <production-form [productionForm]="prodControl" [team]="_shared.data.production.team" (clientDueDate)="productionEvent($event)" (internalDueDate)="productionEvent($event)" (designer)="productionEvent($event)" (manager)="productionEvent($event)" (projectStatus)="productionEvent($event)" (internalStatus)="productionEvent($event)" (phnxTask)="productionEvent($event)" (hidden)="productionEvent($event)" (notes)="handleNotesEvent($event)" [disabledForm]="!!_shared.data.archived"></production-form>
+                  <!-- </div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="creatives-block" class="panel panel-primary">
+          <div class="panel-heading">
+            <h3>Creatives</h3></div>
+          <div class="panel-body">
+            <div *ngIf="_shared.data.owner != 'LIN'">
+              <h2>{{_shared.data.owner}} do not have Creatives</h2>
+            </div>
+            <div class="row" *ngIf="_shared.data.owner == 'LIN'">
+              <div class="col-sm-4">
+                <div class="creatives">
+                  <accordion>
+                    <accordion-group [panelClass]="typeHeadingClass" #group [isOpen]="globalCreativeExpand" *ngFor="let typ of _shared.data.creatives">
+                      <div accordion-heading>
+                        {{typ.tag}} - <span class="badge"> {{typ.items.length}} </span>
+                        <i class="pull-right float-xs-right glyphicon" [ngClass]="{'glyphicon-chevron-down': group?.isOpen, 'glyphicon-chevron-right': !group?.isOpen}"></i>
+                      </div>
+                      <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                          <tr *ngFor="let crv of typ.items">
+                            <td (click)="loadCreativeDetail(crv)"> {{crv.name}}</td>
+                          </tr>
+                        </table>
+                      </div>
+                    </accordion-group>
+                  </accordion>
+                </div>
+              </div>
+              <div class="col-sm-8">
+                <form class="well" [formGroup]="creativeForm" (ngSubmit)="onSubmitCreatives()" *ngIf="!_shared.data.archived && userInfo.app_metadata.group != 'theorem-creative'">
+                  <div>
+                    <app-creative-array formArrayName="creatives" #arrayList [creativesFormArray]="creativesArray" [passCreatives]="_shared.data.creatives"></app-creative-array>
+                  </div>
+                  <div class="text-right" *ngIf="creativesArray.length > 0">
+                    <button class="btn btn-warning" type="submit" [disabled]="submitValidate()">Save Creatives</button>
+                  </div>
+                </form>
+                <div *ngIf="creativeDetail">
+                  <creative-detail [creative]="creativeDetail" (updateCreative)="_shared.updateCreative($event)"></creative-detail>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="revision-panel" class="panel panel-primary">
+          <div class="panel-heading">
+            <h3>Previews</h3> </div>
+          <div class="panel-body">
+            <div *ngIf="_shared.data.owner != 'LIN'">
+              <h2>{{_shared.data.owner}} do not have Previews</h2>
+            </div>
+            <div class="row">
+              <div class="col-xs-4">
+                <button class="btn" [ngClass]="{'btn-default': lockPrevBtn, 'btn-success': !lockPrevBtn}" [disabled]="lockPrevBtn" (click)="requestNewPreview()">Generate Preview</button>
+                <!--  <button class="btn" [ngClass]="{'btn-default': lockQABtn, 'btn-warning': !lockQABtn}" [disabled]="_shared.data.setup == 0" (click)="requestQAPreview()">QA Link</button> -->
+              </div>
+              <div class="col-xs-12" *ngIf="_shared.data.scripts.previews.preview_error == 1 || _shared.data.scripts.previews.preview_req == 1">
+                <div *ngIf="utcTimePre > 5">
+                  <p class="script-message bg-danger">Is been more than 5 minutes, something probably went wrong. Try again or contact support</p>
+                </div>
+                <div *ngIf="utcTimePre <= 5">
+                  <p class="script-message bg-info">Your preview is in progress: it's been {{utcTimePre}} minutes since request</p>
+                </div>
+              </div>
+            </div>
+            <div class="row" *ngIf="_shared.data.owner == 'LIN'">
+              <div class="col-sm-4">
+                <div class="table-responsive">
+                  <table class="table table-bordered">
+                    <thead class="thead-inverse">
+                      <tr>
+                        <th>Rev #</th>
+                        <th>Created</th>
+                        <th>Status</th>
+                        <th>Preview</th>
+                        <th>Locked</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let rev of prevList" [ngClass]="_shareStatus.getColorClass(rev.global_status)">
+                        <td> <a (click)="changeRevision(rev.revision)">{{ rev.revision }}</a> </td>
+                        <td> {{ rev.rev_date | date}} </td>
+                        <td> {{ rev.global_status }}</td>
+                        <td> <a (click)="navigateToPreviews(rev.revision)">link</a></td>
+                        <td class="text-center">
+                          <input type="checkbox" [(ngModel)]="rev.submitted" (change)="changeReset($event.target.checked, rev.preview_rev_id)">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="col-sm-8">
+                <div id="revision-panel">
+                  <revision-status-detail *ngIf="activeRevision" [revisionData]="activeRevision" [startCollapsed]="revDetailCollapsed" (showCreative)="showPreview($event)" [changeStatus]="true" [showLockCrv]="true" [showIncludeCrv]="true" (creativeStatusUpdate)="refreshPreviews($event)" [customName]="true" [internalPreview]="true"></revision-status-detail>
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <div id='previewad'>
+                  <div class="row" *ngIf="showCreative">
+                    <div class="well">
+                      <preview-ad [creative]="showCreative" [server]=previewAssets></preview-ad>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="publish-panel" class="panel panel-primary">
+          <div class="panel-heading">
+            <h3>Traffic</h3>
+          </div>
+          <div class="panel-body">
+            <div class="row" *ngIf="userInfo.app_metadata.group == 'theorem-creative'">
+              <div class="col-sm-12">
+                <button class="btn" [ngClass]="{'btn-default': lockPubBtn, 'btn-success': !lockPubBtn}" [disabled]="lockPubBtn" (click)="requestPublish()">
+                  <span *ngIf="_shared.data.published.length > 0">Republish</span> <span *ngIf="_shared.data.published.length == 0">Publish</span> Campaign</button>
+              </div>
+            </div>
+            <div class="row" *ngIf="_shared.data.scripts.publish.publish_error == 1 || _shared.data.scripts.publish.publish_req == 1">
+              <div class="col-xs-12">
+                <div *ngIf="utcTimeTraf > 5">
+                  <p class="script-message bg-danger">Is been more than 5 minutes, something probably went wrong. Try again or contact support</p>
+                </div>
+                <div *ngIf="utcTimeTraf <= 5">
+                  <p class="script-message bg-info">Your request to traffic is in progress: it's been {{utcTimeTraf}} minutes since request</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12" *ngIf="_shared.data.published.length > 0">
+              <h3>AdOps URLs</h3>
+              <p *ngFor="let item of _shared.data.published">
+                {{getCDN(item)}}{{item.path}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="!showPage">
+      <div class="col-xs-12">
+        <h1>No Campaign found with ID: {{campaignID}}</h1>
+        <h3>This id is not the PHNX id. Use ids from creative list.</h3>
+      </div>
+    </div>
+  </div>
+</div>
+<campaign-tags *ngIf="showPage && userInfo.app_metadata.group != 'theorem-creative'" [stacked]="true" [afix]="true" [campaignID]="_shared.data.campaign_id" [tagList]="_shared.data.tags"></campaign-tags>
+<!-- <ng-template #preview-error>
+  <p class="script-message bg-info">Preview in prroggress</p>
+</ng-template>
+<ng-template #preview-running>
+  <div>
+    Please friend, login.
+  </div>
+</ng-template> -->

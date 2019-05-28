@@ -1,0 +1,220 @@
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="row nomargin">
+        <div class="col-xs-6">
+          <h2 class="panel-title">Filters</h2>
+        </div>
+        <div class="col-xs-6 text-right">
+          <button class="btn btn-sm" [ngClass]="{'btn-danger':filtering, 'btn-default':!filtering}" (click)="onResetAll()">Reset All</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-xs-12 col-sm-10">
+          <div class="well well-sm">
+            <p><strong>Search by...</strong></p>
+            <div class="radio">
+              <label>
+                <input type="radio" [(ngModel)]="settings.mode" name="radioOption" value="campaign" (change)="onSearchModeChange()">
+                <strong>Campaign Name: </strong><em>Honda</em> or use " " for exact match: <em>"Lab Manager"</em>
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" [(ngModel)]="settings.mode" name="radioOption" value="server" (change)="onSearchModeChange()">
+                <strong>Server Name: </strong><em>BriggsAutolane-BriggsAutomotiveGroupSpring2014_14-0410</em>
+              </label>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" [(ngModel)]="settings.mode" name="radioOption" value="tags" (change)="onSearchModeChange()">
+                <strong>Tags:</strong> "automotive, wine, finance"
+              </label>
+            </div>
+             <div class="radio">
+              <label>
+                <input type="radio" [(ngModel)]="settings.mode" name="radioOption" value="phnxid" (change)="onSearchModeChange()">
+                <strong>PHNX ID:</strong> "123456"
+              </label>
+            </div>
+            <input [(ngModel)]="searchBox" class="form-control" (keyup)="search(searchBox)" placeholder="Honda, BriggsAutolane-BriggsAutomotiveGroupSpring2014_14-0410">
+            <div class="well well-sm faded-color" *ngIf="settings.mode == 'tags'">
+              Available tags: {{ tagResults | json}}
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-2">
+          <div class="well well-sm">
+            <div class="checkbox">
+              <label>
+                <input [(ngModel)]="settings.meg" name="MEG" type="checkbox" (change)="toggleOptions()">MEG &amp; ThirdParty</label>
+            </div>
+
+             <div class="checkbox">
+              <label>
+                <input [(ngModel)]="settings.showcase" name="showcase" type="checkbox" (change)="toggleOptions()">Showcase Only</label>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="well well-sm">
+            <div class="row">
+              <div class="col-sm-4">
+                <select class="form-control" [(ngModel)]="settings.type" name="type" (change)="onUpdateType($event)">
+                  <option value="null">All Types</option>
+                  <option value="RichMedia">Rich Media</option>
+                  <option value="Standard">Standard</option>
+                  <option value="Static">Static</option>
+                  <option value="Email">Email</option>
+                </select>
+              </div>
+              <div class="col-sm-8">
+                <div class="row">
+                  <div *ngIf="settings.type == 'null' || settings.type != 'Static'">
+                    <div class="col-xs-6 col-sm-4 col-md-3">
+                      <div class="checkbox">
+                        <label>
+                          <input [(ngModel)]="settings.format.html" name="HTML5" type="checkbox" (change)="onUpdateFilter($event)">HTML5</label>
+                      </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-4 col-md-3">
+                      <div class="checkbox">
+                        <label>
+                          <input [(ngModel)]="settings.format.swf" name="Flash" type="checkbox" (change)="onUpdateFilter($event)">Flash</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="settings.type == 'null' || settings.type == 'Static'">
+                    <div class="col-xs-6 col-sm-4 col-md-3">
+                      <div class="checkbox">
+                        <label>
+                          <input [(ngModel)]="settings.format.jpg" name="JPG" type="checkbox" (change)="onUpdateFilter($event)">JPG</label>
+                      </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-4 col-md-3">
+                      <div class="checkbox">
+                        <label>
+                          <input [(ngModel)]="settings.format.gif" name="GIF" type="checkbox" (change)="onUpdateFilter($event)">GIF</label>
+                      </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-4 col-md-3">
+                      <div class="checkbox">
+                        <label>
+                          <input [(ngModel)]="settings.format.png" name="PNG" type="checkbox" (change)="onUpdateFilter($event)">PNG</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row" *ngIf="settings.showOptions">
+              <div class="col-xs-12">
+                <div class="checkbox">
+                  <creative-options [displayOnly]="true" [displaySet]="settings.options" [allowChange]="true" (inputChange)="onOptionChange($event)" [modeShow]="settings.showOptionValue"></creative-options>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="well">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="form-group">
+                  <select [(ngModel)]="settings.date.year" (change)="onRequestDates($event.target.value)" class="form-control">
+                    <option value="null">Search by Year</option>
+                    <option value="month">By Month</option>
+                   <option  *ngFor="let item of yearList" [ngValue]="item">
+                {{item}}
+              </option>
+                  </select>
+                </div>
+              </div>
+              <div *ngIf="settings.showSpecificDate">
+                <div class="col-xs-6">
+                  <label>Start</label>
+                  <div class="input-group">
+                    <input class="form-control" [options]="startDateOptions" #dpStart="ngx-mydatepicker" ngx-mydatepicker name="start" readonly (dateChanged)="onStartDateChange($event)">
+                    <div class="input-group-btn">
+                      <button type="button" class="btn btn-default" (click)="dpStart.toggleCalendar()"><span class="glyphicon glyphicon-calendar"></span></button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-6">
+                  <label>End</label>
+                  <div class="input-group">
+                    <input class="form-control" readonly [options]="endDateOptions" #dpEnd="ngx-mydatepicker" ngx-mydatepicker name="end" (dateChanged)="onEndDateChange($event)">
+                    <div class="input-group-btn">
+                      <button type="button" class="btn btn-default" [disabled]="!settings.date.start" (click)="dpEnd.toggleCalendar()"><span class="glyphicon glyphicon-calendar"></span></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6 col-sm-2">
+          <label>Total Campaigns: {{totalItems}}</label>
+        </div>
+        <div class="col-xs-6 col-sm-2 col-sm-push-8">
+          <div class="form-inline">
+            <div class="form-group">
+              <label>Rows per page</label>
+              <select class="form-control" (change)="onChangeLimit($event)" [ngModel]="settings.rowLimit">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+                <option value="200">200</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-8 col-sm-pull-2">
+          <div class="center-block" [ngStyle]="paginationStyle">
+            <pagination #pagination class="pagination-sm text-center" [totalItems]="totalItems" [maxSize]="maxSize" [rotate]="false" [itemsPerPage]="settings.rowLimit" (pageChanged)="onPageChanged($event, 'true')"></pagination>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="table-responsive" *ngIf="displayList">
+          <table class="table table-striped">
+            <thead class="thead-inverse">
+              <tr>
+                <th>ID</th>
+                <th>PHNX ID</th>
+                <th>Client</th>
+                <th>Server Name</th>
+                <!-- <th>Teamwork</th> -->
+                <th *ngIf="settings.meg">Owner</th>
+                <th>Archived</th>
+                <th>Showcase</th>
+                <th>Tagged</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let camp of displayList">
+                <td> <a [routerLink]="[ '/dashboard','production', 'campaign', camp.campaign_id]">{{camp.campaign_id}}</a></td>
+                <td>{{camp.phnx_id}}</td>
+                <td>{{camp.client_name}}</td>
+                <td>{{camp.server_name}}</td>
+                <!-- <td>{{camp.tw_id}}</td> -->
+                <td *ngIf="settings.meg">{{camp.owner}}</td>
+                <td>{{ camp.archived | niceBool:{true:'Yes', false:'No'} }}</td>
+                <td>{{ camp.showcase | niceBool:{true:'Yes', false:'No'} }}</td>
+                <td><span class="glyphicon glyphicon-tag" *ngIf="camp.tagged"></span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+      </div>
+    </div>

@@ -1,0 +1,46 @@
+<div class="checkbox">
+    <div class="col-xs-6 col-md-4" *ngIf="showCheckbox() ">
+        <label>
+            <input type="checkbox" name="video" [disabled]="!allowChange" (change)="onOptionChange($event)" [(ngModel)]="optionValues.video.value">Video</label>
+    </div>
+    <div class="col-xs-6 col-md-4" *ngIf="showCheckbox()">
+        <label>
+            <input type="checkbox" name="expandable" [disabled]="!allowChange" (change)="onOptionChange($event)" [(ngModel)]="optionValues.expandable.value">Expandable</label>
+    </div>
+    <div class="col-xs-6 col-md-4" *ngIf="showCheckbox()">
+        <label>
+            <input type="checkbox" name="pushdown" [disabled]="!allowChange" (change)="onOptionChange($event)" [(ngModel)]="optionValues.pushdown.value">Push Down</label>
+    </div>
+    <div class="col-xs-6 col-md-4" *ngIf="showCheckbox()">
+        <label>
+            <input type="checkbox" name="carousel" [disabled]="!allowChange" (change)="onOptionChange($event)" [(ngModel)]="optionValues.carousel.value">Carousel</label>
+    </div>
+    <div class="col-xs-6 col-md-4" *ngIf="showCheckbox()">
+        <label>
+            <input type="checkbox" name="map" [disabled]="!allowChange" (change)="onOptionChange($event)" [(ngModel)]="optionValues.map.value">Map</label>
+    </div>
+    <div class="col-xs-6 col-md-4" *ngIf="showCheckbox()">
+        <label>
+            <input type="checkbox" name="fmcontent" [disabled]="!allowChange" (change)="onOptionChange($event)" [(ngModel)]="optionValues.fmcontent.value">FM Content</label>
+    </div>
+    <div class="col-xs-6 col-md-4" *ngIf="showCheckbox()">
+        <label>
+            <input type="checkbox" name="form" [disabled]="!allowChange" (change)="onOptionChange($event)" [(ngModel)]="optionValues.form.value">Form</label>
+    </div>
+    <div class="col-xs-6" [ngClass]="{'col-md-4':showCheckbox(), 'col-md-3':!showCheckbox()}">
+        <label>
+            <input type="checkbox" name="custom" [disabled]="!allowChange" (change)="onOptionChange($event)" [(ngModel)]="optionValues.custom.value">Custom</label>
+    </div>
+    <div class="col-xs-6" [ngClass]="{'col-md-4':showCheckbox(), 'col-md-3':!showCheckbox()}">
+        <label>
+            <input type="checkbox" name="clicktocall" [disabled]="!allowChange" (change)="onOptionChange($event)" [(ngModel)]="optionValues.clicktocall.value">Click to Call</label>
+    </div>
+    <!--  <div class="col-xs-6 col-md-4">
+        <label>
+            <input type="checkbox" name="location" [disabled]="!allowChange" (change)="onOptionChange($event)" [(ngModel)]="optionValues.location.value">Location</label>
+    </div> -->
+     <!-- <div class="col-xs-6 col-md-4">
+        <label>
+            <input type="checkbox" name="carousel" [disabled]="!allowChange" (change)="onOptionChange($event)" [(ngModel)]="optionValues.carousel.value">Carousel</label>
+    </div> -->
+</div>

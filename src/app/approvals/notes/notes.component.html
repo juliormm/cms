@@ -1,0 +1,14 @@
+<div id="notes-wrapper" [ngClass]="{'form-open':displayToggle(), 'form-closed':!displayToggle()}">
+	<div id="notes-container" [ngClass]="{'form-open':displayToggle(), 'form-closed':!displayToggle()}">
+	    <div class="row nomargin">
+	        <div id="notes-form" class="col-xs-12">
+	            <button type="button" class="btn btn-transparent btn-closeForm" (click)="closeNotes()">
+	                <span class="glyphicon glyphicon-remove"></span>
+	            </button>
+	            <label for="comment" class="notes-label"><span class="primary-font italic changes-key">Change request for:</span><span class="secondary-font">{{ crvInfo.size }}</span> <span *ngIf="crvInfo.versions"> - {{crvInfo.name}}</span></label>
+	            <textarea class="form-control form-textarea" rows="4" id="comment" placeholder="Add comments about the changes you need made here." [(ngModel)]="clientNotes" [attr.disabled]="_shared.locked ? true : null" ></textarea>
+	            <button type="submit" class="btn btn-blue btn-submit pull-right" [attr.disabled]="_shared.locked ? true : null" (click)="onSaveChanges()">Save Changes</button>
+	        </div>
+	    </div>
+	</div>
+</div>

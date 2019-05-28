@@ -1,0 +1,26 @@
+<div class="form-group" [formGroup]="clientGroup">
+    <label>Client Name</label>
+    <input type="text" class="form-control" formControlName="client_name" [typeaheadAsync]="true" [typeahead]="clientDataSource" (typeaheadLoading)="clientLoading=$event" (typeaheadOnSelect)="clientSelectedHandle($event)" [typeaheadWaitMs]="500" [typeaheadOptionsLimit]="10" [typeaheadOptionField]="'client_name'">
+    <div class="form-msg">
+        <p class="bg-success" *ngIf="clientNameControl.dirty && clientRename">
+            <span class="glyphicon glyphicon-pencil"></span> Renaming current client from: <em>{{initDataCopy.client_name}}</em>
+        </p>
+        <p class="bg-warning" *ngIf="clientNameControl.dirty && clientChange">
+            <span class="glyphicon glyphicon-refresh"></span> Assigning new client: old client was {{initDataCopy.client_name}}
+        </p>
+        <p class="bg-warning" *ngIf="clientNameControl.dirty && clientRenameSelected && !initDataCopy.clien_name">
+            <span class="glyphicon glyphicon-refresh"></span> <span *ngIf="!importedData">Selected</span><span *ngIf="importedData">Imported</span> client will be renamed - clear field and then start typing for new client
+        </p>
+        <p class="bg-success" *ngIf="clientNameControl.dirty && clientAddingNew && !initDataCopy.clien_name">
+            <span class="glyphicon glyphicon-plus"></span> Adding new client to database
+        </p>
+        <p class="bg-danger" *ngIf="clientNameControl.errors && clientNameControl.dirty">
+            <span class="glyphicon glyphicon-remove"></span>
+            <span *ngIf="clientNameControl.errors.required"> Can not be empty</span>
+            <span *ngIf="clientNameControl.errors.minlength"> Not long enough</span>
+        </p>
+    </div>
+    <div *ngIf="clientLoading===true">
+        <span class="glyphicon glyphicon-refresh ng-hide"></span> looking for other clients...
+    </div>
+</div>

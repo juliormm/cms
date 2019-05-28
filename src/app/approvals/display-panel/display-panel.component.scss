@@ -1,0 +1,115 @@
+@import "../../../_vars";
+
+#preview-panel {
+    background-image: url(/assets/images/bg_pattern.png);
+    width: 100%;
+    @include calc( height, '100% - 40px');
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: absolute;
+    top: 5px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    z-index: $contentIndex;
+
+    .expand{
+        @include calc( height, '100% - 70px');
+    }
+}
+
+#preview-page {
+    background-color: #fff;
+    margin-bottom: 25px;
+    border-top: 1px solid $dark-gray;
+    border-bottom: 1px solid $dark-gray;
+    padding:0;
+}
+
+.paddingpage{
+    padding-top:20px;
+    padding-bottom:20px;
+}
+
+.text-align{
+    text-align: center;
+}
+
+.full-height {
+    // height: calc(100% - 120px);
+}
+
+.semibold {
+    font-weight: 600;
+}
+
+.header-title{
+    margin-bottom: 20px;
+}
+
+.campaign-info-key {
+    padding-right: 6px;
+}
+
+.status-pending {
+    color: $dark-gray;
+}
+
+.status-approved {
+    color: $turquoise;
+}
+
+.status-changes {
+    color: $light-red;
+}
+
+#alert-submit{
+    z-index:$topIndex;
+    position:absolute;
+    top:40px;
+    width:100%;
+    right:0;
+}
+
+
+
+@media (min-width: 768px) {
+    #preview-panel {
+        width: 73%;
+        left: 27%;
+        top: 60px;
+        @include calc( height, '100% - 126px');
+    }
+
+    #preview-page {
+    	padding-left:15px;
+    	padding-right:15px;
+	}
+
+    #alert-submit{
+         top:0;
+        width:auto;
+    }
+
+    .text-align{
+        text-align: left;
+    }
+}
+
+@media (min-width: 992px) {
+    #preview-panel {
+        width: 77%;
+        left: 23%;
+        top: 40px;
+    }
+}
+
+@media (min-width: 1200px) {
+    #preview-panel {
+        width: 83%;
+        left: 17%;
+    }
+    #preview-page {
+        box-shadow: 2px 5px 10px #888888;
+        border: none;
+    }
+}

@@ -1,0 +1,35 @@
+<div id="approval-nav" class="sidebar-open" [ngClass]="{'sidebar-open': menuOpen, 'sidebar-closed': !menuOpen}">
+    <approval-submit-revision class="hidden-xs"></approval-submit-revision>
+    <div class="row nomargin" [ngClass]="{'nav-items':!_shared.showSubmit}">
+        <div class="col-sm-12 nopadding">
+            <div *ngFor="let cType of crvTypeList; let t = index">
+                <div class="primary-font italic sb-heading">
+                    {{cType.tag | cleanTypeName }} Ad Units
+                </div>
+                <ul class="nomargin nopadding sb-sizes">
+                    <li class="secondary-font sb-sizes-pending" *ngFor="let crv of cType.items; let c = index; let isLast = last" [ngClass]="setNavClasses(crv, isLast)" (click)="changeCreative(crv.prv_crv_id)">
+                        <span *ngIf="crv.size != 0"> {{crv.size}} </span>
+                        <span *ngIf="crv.size == 0"> {{crv.type}} </span>
+                        <span *ngIf="cType.versions">
+                                <span class="custom_name" *ngIf="crv.custom_name"> - {{crv.custom_name}}</span>
+                                <span class="custom_name" *ngIf="!crv.custom_name"> - {{crv.display_name}}</span>
+                                 <!-- <span class="custom_name" *ngIf="!crv.custom_name"> - {{crv.name}}</span> -->
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <!-- </div> -->
+            <ul class="nomargin sb-sizes-key">
+                <li class="secondary-font sb-sizes-pending">
+                    Waiting Approval
+                </li>
+                <li class="secondary-font sb-sizes-approved">
+                    Approved
+                </li>
+                <li class="secondary-font sb-sizes-changes">
+                    Needs Changes
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

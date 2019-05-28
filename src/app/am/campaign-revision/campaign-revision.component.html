@@ -1,0 +1,4 @@
+<h3>Revision details - {{campDetail.campaign_name}}</h3>
+<div *ngIf="activeRevision" id="revisions-detail">
+    <revision-status-detail [revisionData]="activeRevision" (showCreative)="showPreview($event)" [internalPreview]="true"></revision-status-detail>
+</div>

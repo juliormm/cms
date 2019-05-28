@@ -1,0 +1,133 @@
+<div class="container">
+  <div class="row">
+    <!-- <app-lin-alert class="col-xs-12 col-md-6 col-md-push-6 alert-job"></app-lin-alert> -->
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="panel panel-info">
+        <div class="panel-heading">Use this box to fill form with phnx info.</div>
+        <div class="panel-body">
+          <form #fPHNX="ngForm" novalidate (ngSubmit)="onImportPHNX()">
+            <div class="form-inline bottom-spacing">
+              <div class="form-group">
+                <div class="input-group">
+                  <input type="text" name="campaign_id" class="form-control" placeholder="PHNX ID" [(ngModel)]="phnxID" required pattern="\d{5,6}" #idNumber="ngModel" [disabled]="disableImports">
+                  <span class="input-group-btn"><button  class="btn btn-primary" type="submit" [disabled]="!fPHNX.valid || manualDisabled">Import</button></span>
+                </div>
+                <small [hidden]="idNumber.valid || fPHNX.pristine || (!fPHNX.dirty && !fPHNX.submitted)"> Use the 5 or 6 digit PHNX ID.</small>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="panel panel-info">
+        <div class="panel-heading">This will generate the correct templates for the team.</div>
+        <div class="panel-body">
+          <div class="form-horizontal">
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Templates</label>
+              <div class="col-sm-10">
+                <select [(ngModel)]="templateSelected" class="form-control" (change)="templateChanged()">
+                  <option *ngFor="let kvp of templates | mapToIterable" [value]="kvp.key">{{kvp.val.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Team</label>
+              <div class="col-sm-10">
+                <select [(ngModel)]="templateSelected" class="form-control" disabled>
+                  <option *ngFor="let kvp of templates | mapToIterable" [value]="kvp.key">{{kvp.val.team}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--     <div class="col-sm-6">
+      <div class="panel panel-info">
+        <div class="panel-heading">Use this box to fill with previous saved projects.</div>
+        <div class="panel-body">
+          <div class="form-group">
+            <select #selectPreviews class="form-control" (change)="onPreSaved($event.target.value)">
+              <option value="null" disabled selected>Select Jobs</option>
+              <option *ngFor="let item of savedJobs; let i=index" value="{{i}}"> {{item.client.client_name}} - {{item.campaign_name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+  <form [formGroup]="projectForm" (ngSubmit)="modalSubmit()">
+    <div class="panel panel-primary">
+      <div class="panel-heading">Basic Info</div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="panel panel-info">
+              <div class="panel-heading">Server Name: <strong>{{serverFolderName}}</strong></div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <form-client #clientField [clientGroup]=clientGroupControl></form-client>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Campaign Name</label>
+              <input type="text" class="form-control" formControlName="campaign_name">
+              <div class="form-msg">
+                <div class="bg-danger" *ngIf="campaignNameControl.errors && campaignNameControl.dirty">
+                  <span class="glyphicon glyphicon-remove"></span>
+                  <span *ngIf="campaignNameControl.errors.required"> Can not be empty</span>
+                  <span *ngIf="campaignNameControl.errors.minlength"> Not long enough</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-3">
+            <form-am-list #amSelectView [listType]="'am'" [fGroup]=amGroupControl (fullList)="setAMList($event)"></form-am-list>
+          </div>
+          <div class="col-sm-3">
+            <form-am-list #aeSelectView [listType]="'ae'" [fGroup]=aeGroupControl (fullList)="setAEList($event)"></form-am-list>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Service Type</label>
+              <select class="form-control" formControlName="owner">
+                <option value="LIN" selected>Creative</option>
+                <option value="Internal" selected>Internal - no creatives</option>
+                <option value="ThirdParty">ThirdParty</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-primary" *ngIf="ownerControl.value == 'LIN'">
+      <div class="panel-heading clearfix">Creatives</div>
+      <div class="panel-body">
+        <app-creative-array formArrayName="creatives" #arrayList [showDuplicate]="true" [creativesFormArray]="projectForm.get('creatives')"></app-creative-array>
+      </div>
+    </div>
+    <div class="row">
+      <!-- <div class="col-sm-4 col-sm-offset-2">
+        <div class="form-group text-center">
+          <button class="btn btn-warning" type="button" [disabled]="saveValidate(campaignNameControl.valid, clientGroupControl.get('client_name').valid)" (click)="onSaveFormLater()"> {{ saveLaterBtn }}</button>
+          <button *ngIf="loadedPreProj" class="btn btn-danger" type="button" (click)="modalDelete()">Delete</button>
+        </div>
+      </div> -->
+      <div class="col-sm-4 col-sm-offset-4">
+        <div class="form-group text-center">
+          <button class="btn btn-lg btn-default" type="button" (click)="modalReset()">Reset</button>
+          <button class="btn btn-lg btn-success" type="submit" [disabled]="submitValidate()">Submit</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

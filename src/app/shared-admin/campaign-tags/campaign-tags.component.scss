@@ -1,0 +1,45 @@
+@import "../../../_vars";
+
+.limit-overflow{
+	max-height: 150px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+
+#tag-module{
+	@include transition-duration(0.5s);
+	@include transition();
+	
+	&.afix{
+		position: fixed;
+		z-index: $demoIndex;
+		bottom: 50px;
+		
+	}
+
+	&.closed{
+		right: -350px;
+	}
+
+	&.open{
+		right: 0;
+	}
+		
+}
+
+
+
+.toggle{
+	padding:10px;
+	background-color:$maroon;
+	color:$white;
+	float: left;
+}
+
+.tag-block{
+	&.afix{
+		width:350px;
+		float: left;
+	}
+}

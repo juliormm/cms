@@ -1,0 +1,108 @@
+<div class="container-fluid nopadding">
+    <div class="row">
+        <div *ngIf="!isStatic">
+            <div class="replay-container text-center mobile">
+                <button (click)="onReplayButton()" class='btn btn-blue replay-btn'>Replay</button>
+            </div>
+            <div class="replay-container desktop" [ngClass]="{'submiton':_shared.showSubmit}">
+                <button class="btn btn-transparent replay-btn" (click)="onReplayButton()"></button>
+            </div>
+        </div>
+        <div id="fake-desktop" class="container-fluid nopadding fake-page" *ngIf="!mobileMode">
+            <div class="hidden-md hidden-lg col-xs-12 nofloat nopadding fake-div fake-copy"></div>
+            <div class="hidden-md hidden-lg col-xs-12 nofloat nopadding fake-div fake-copy"></div>
+            <div class="hidden-md hidden-lg col-xs-12 nofloat nopadding fake-div fake-copy"></div>
+            <div id="ads-container">
+                <div class="ad-unit" [ngClass]="getClass()">
+                    <preview-ad [creative]=crvDetail [server]=baseURL></preview-ad>
+                </div>
+            </div>
+            <div class="hidden-xs hidden-sm col-xs-12 nopadding column1 inline-block">
+                <div class="col-xs-12 nopadding fake-div fake-copy"></div>
+                <div class="col-xs-12 nopadding fake-div fake-copy"></div>
+                <div class="col-xs-12 nopadding fake-div fake-copy"></div>
+                <div id="dummyAd1" class="sectionBreak col-xs-12 nopadding fake-div">
+                    <svg height="100%" width="100%">
+                        <line x1="0" y1="0" x2="100%" y2="100%" style="stroke:rgb(255,255,255);stroke-width:1"></line>
+                        <line x1="0" y1="100%" x2="100%" y2="0" style="stroke:rgb(255,255,255);stroke-width:1"></line>
+                    </svg>
+                </div>
+                <div class="sectionBreak col-xs-12 nopadding fake-div fake-copy"></div>
+                <div class="col-xs-12 nopadding fake-div fake-copy"></div>
+                <div class="col-xs-12 nopadding fake-div fake-copy"></div>
+                <div class="sectionBreak col-xs-12 nopadding fake-div fake-copy"></div>
+                <div class="col-xs-12 nopadding fake-div fake-copy"></div>
+                <div class="col-xs-12 nopadding fake-div fake-copy"></div>
+                <div class="col-xs-12 nopadding fake-div fake-copy"></div>
+                <div class="col-xs-12 nopadding fake-div fake-copy"></div>
+            </div>
+            <div class="hidden-xs hidden-sm col-xs-12 nopadding column2 inline-block">
+                <div class="col-xs-12 nopadding fake-div fake-copy"></div>
+                <div class="col-xs-12 nopadding fake-div fake-copy"></div>
+                <div class="col-xs-12 nopadding fake-div fake-copy"></div>
+                <div class="sectionBreak col-xs-12 nopadding fake-div fake-copy"></div>
+                <div class="col-xs-12 nopadding fake-div fake-copy"></div>
+                <div class="col-xs-12 nopadding fake-div fake-copy"></div>
+                <div class="col-xs-12 nopadding fake-div fake-copy"></div>
+                <div class="col-xs-12 nopadding fake-div fake-copy"></div>
+                <div id="dummyAd2" class="nopadding col-xs-12 fake-div">
+                    <svg height="100%" width="100%">
+                        <line x1="0" y1="0" x2="100%" y2="100%" style="stroke:rgb(255,255,255);stroke-width:1"></line>
+                        <line x1="0" y1="100%" x2="100%" y2="0" style="stroke:rgb(255,255,255);stroke-width:1"></line>
+                    </svg>
+                </div>
+                <div class="sectionBreak col-xs-12 nopadding fake-div fake-copy"></div>
+                <div class="col-xs-12 nopadding fake-div fake-copy"></div>
+                <div class="col-xs-12 nopadding fake-div fake-copy"></div>
+                <div id="dummyAd4" class="sectionBreak col-xs-12 nopadding fake-div">
+                    <svg height="100%" width="100%">
+                        <line x1="0" y1="0" x2="100%" y2="100%" style="stroke:rgb(255,255,255);stroke-width:1"></line>
+                        <line x1="0" y1="100%" x2="100%" y2="0" style="stroke:rgb(255,255,255);stroke-width:1"></line>
+                    </svg>
+                </div>
+            </div>
+            <div class="col-xs-12 nopadding column3 inline-block">
+                <div class="hidden-xs hidden-sm col-xs-12 nopadding fake-div fake-copy"></div>
+                <div class="hidden-xs hidden-sm col-xs-12 nopadding fake-div fake-copy"></div>
+                <div class="hidden-xs hidden-sm col-xs-12 nopadding fake-div fake-copy"></div>
+                <div id="dummyAd3" class="sectionBreak col-xs-12 nopadding fake-div">
+                    <svg height="100%" width="100%">
+                        <line x1="0" y1="0" x2="100%" y2="100%" style="stroke:rgb(255,255,255);stroke-width:1"></line>
+                        <line x1="0" y1="100%" x2="100%" y2="0" style="stroke:rgb(255,255,255);stroke-width:1"></line>
+                    </svg>
+                </div>
+                <div class="sectionBreak col-xs-12 nopadding fake-div fake-copy"></div>
+                <div class="col-xs-12 nopadding fake-div fake-copy"></div>
+                <div class="col-xs-12 nopadding fake-div fake-copy"></div>
+                <div class="hidden-xs hidden-sm sectionBreak col-xs-12 nopadding fake-div fake-copy"></div>
+                <div class="hidden-xs hidden-sm col-xs-12 nopadding fake-div fake-copy"></div>
+                <div class="hidden-xs hidden-sm col-xs-12 nopadding fake-div fake-copy"></div>
+                <div class="hidden-xs hidden-sm col-xs-12 nopadding fake-div fake-copy"></div>
+                <div class="hidden-xs hidden-sm col-xs-12 nopadding fake-div fake-copy"></div>
+            </div>
+        </div>
+        <div id="fake-mobile" class="container-fluid nopadding fake-page" *ngIf="mobileMode">
+            <div id="mobile-container">
+                <div class="col-xs-12 nofloat nopadding fake-div fake-copy"></div>
+                <div class="col-xs-12 nofloat nopadding fake-div fake-copy"></div>
+                <div class="col-xs-12 nofloat nopadding fake-div fake-copy"></div>
+                <div id="ads-container">
+                    <div class="ad-unit" [ngClass]="getClass()">
+                        <preview-ad [creative]=crvDetail [server]=baseURL></preview-ad>
+                    </div>
+                </div>
+                <div class="col-xs-12 nopadding inline-block">
+                    <div id="dummyAd3" class="sectionBreak col-xs-12 nopadding fake-div">
+                        <svg height="100%" width="100%">
+                            <line x1="0" y1="0" x2="100%" y2="100%" style="stroke:rgb(255,255,255);stroke-width:1"></line>
+                            <line x1="0" y1="100%" x2="100%" y2="0" style="stroke:rgb(255,255,255);stroke-width:1"></line>
+                        </svg>
+                    </div>
+                    <div class="sectionBreak col-xs-12 nopadding fake-div fake-copy"></div>
+                    <div class="col-xs-12 nopadding fake-div fake-copy"></div>
+                    <div class="col-xs-12 nopadding fake-div fake-copy"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

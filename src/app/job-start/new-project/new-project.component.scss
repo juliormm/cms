@@ -1,0 +1,18 @@
+.bottom-spacing{
+	margin-bottom:15px;
+}
+.fix-collapse{
+	width: 100%; overflow:auto;
+}
+
+
+:host /deep/.alert-job .alert-base-position{
+	position: relative;
+}
+
+@media (min-width: 992px) {
+	:host /deep/.alert-job .alert-base-position{
+		position: absolute;
+		top: -10px;
+	}
+}

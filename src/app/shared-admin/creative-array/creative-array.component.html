@@ -1,0 +1,18 @@
+<creative-control *ngFor="let item of creativesFormArray.controls; let i=index;" #crv [index]="i" 
+[prefix]="prefix"
+[creativeGroup]="item" 
+[showDuplicate]="showDuplicate"
+(removed)="removeItem($event)" 
+(duplicateEvent) = "duplicateCreative($event)"
+(setItem)="addToService($event)" 
+(creativeInfo)="lastCreative($event)">
+</creative-control>
+<div class="row">
+  <div class="col-sm-6">
+    <button type="button" class="btn btn-success" [disabled]="creativesFormArray.invalid" (click)="addItem()"> <span class="glyphicon glyphicon-plus"></span> Add Creative </button> 
+
+  </div>
+  <!-- <div class="col-sm-6" *ngIf="creativesFormArray.length > 0">
+    
+  </div> -->
+</div>

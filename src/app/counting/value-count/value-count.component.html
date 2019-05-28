@@ -1,0 +1,60 @@
+<div class="container">
+    <div class="row form-inline">
+        <div class="col-sm-3">
+            <label>Start</label>
+            <div class="input-group">
+                <input class="form-control" [options]="startDateOptions" #dpStart="ngx-mydatepicker" ngx-mydatepicker [(ngModel)]="startDate" name="start">
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default" (click)="dpStart.toggleCalendar()"><span class="glyphicon glyphicon-calendar"></span></button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <label>End</label>
+            <div class="input-group">
+                <input class="form-control" [options]="endDateOptions" #dpEnd="ngx-mydatepicker" ngx-mydatepicker [(ngModel)]="endDate" name="end">
+                <div class="input-group-btn">
+                    <button type="button" class="btn btn-default" (click)="dpEnd.toggleCalendar()"><span class="glyphicon glyphicon-calendar"></span></button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <!-- <div class="input-group"> -->
+            <button class="btn btn-default" (click)="submitDates()">Submit</button>
+            <!-- </div> -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th>Type</th>
+                            <th>Creative Count</th>
+                            <th>Single Price</th>
+                            <th>Bundle Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let row of downloadData" #sp>
+                            <td>{{row.key}}</td>
+                            <td>{{row.info.count}}</td>
+                            <td>{{row.info.single_price | currency:'USD':true:'4.2-2' }}</td>
+                            <td>{{row.info.bundles_price | currency:'USD':true:'4.2-2' }}</td>
+                            <td>{{row.info.single_price + row.info.bundles_price | currency:'USD':true:'4.2-2'}}</td>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th>{{totalCount}}</th>
+                            <th>{{singleTotal| currency:'USD':true:'4.2-2' }}</th>
+                            <th>{{bundleTotal | currency:'USD':true:'4.2-2' }}</th>
+                            <th>{{totalTotal | currency:'USD':true:'4.2-2'}}</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

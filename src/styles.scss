@@ -1,0 +1,251 @@
+// @import '/node_modules/bootstrap/dist/css/bootstrap.min.css';
+@import "_vars";
+
+
+.mobile {
+    display: inline-block;
+}
+
+.desktop {
+    display: none;
+}
+
+.nopadding {
+    padding: 0 !important;
+}
+
+.nomargin {
+    margin: 0 !important;
+}
+
+
+
+.text-center-xs {
+    text-align: center;
+}
+
+.text-left-xs {
+    text-align: left;
+}
+
+.text-right-xs {
+    text-align: right;
+}
+
+.text-justify-xs {
+    text-align: justify;
+}
+
+.flex-xs {
+    display: flex;
+}
+
+.stretch-xs {
+    align-items: stretch;
+}
+
+
+/* Small devices (tablets, 768px and up) */
+
+@media (min-width: 768px) {
+    .mobile {
+        display: none;
+    }
+    .desktop {
+        display: inline-block;
+    }
+    .flex-sm {
+        display: flex;
+    }
+    .stretch-sm {
+        align-items: stretch;
+    }
+    .text-center-sm {
+        text-align: center;
+    }
+    .text-left-sm {
+        text-align: left;
+    }
+    .text-right-sm {
+        text-align: right;
+    }
+    .text-justify-sm {
+        text-align: justify;
+    }
+}
+
+
+/* Medium devices (desktops, 992px and up) */
+
+@media (min-width: 992px) {
+    .flex-md {
+        display: flex;
+    }
+    .stretch-md {
+        align-items: stretch;
+    }
+    .text-center-md {
+        text-align: center;
+    }
+    .text-left-md {
+        text-align: left;
+    }
+    .text-right-md {
+        text-align: right;
+    }
+    .text-justify-md {
+        text-align: justify;
+    }
+}
+
+
+/* Large devices (large desktops, 1200px and up) */
+
+@media (min-width: 1200px) {
+    .flex-lg {
+        display: flex;
+    }
+    .stretch-lg {
+        align-items: stretch;
+    }
+    .text-center-lg {
+        text-align: center;
+    }
+    .text-left-lg {
+        text-align: left;
+    }
+    .text-right-lg {
+        text-align: right;
+    }
+    .text-justify-lg {
+        text-align: justify;
+    }
+}
+
+/*
+
+  COLORS
+  Better default colors for the web
+
+*/
+/* 
+
+   VARIABLES
+
+   - Cool
+   - Warm
+   - Gray Scale
+
+*/
+/*
+
+   SKINS
+   - Backgrounds
+   - Colors
+   - Border colors
+   - SVG fills
+   - SVG Strokes
+
+*/
+/* Backgrounds */
+.bg-navy { background-color: $navy; color:$white; }
+.bg-blue { background-color: $blue; color:$white;}
+.bg-aqua { background-color: $aqua; color:$black;}
+.bg-teal { background-color: $teal; color:$white;}
+.bg-olive { background-color: $olive; color:$white;}
+.bg-green { background-color: $green; color:$black;}
+.bg-lime { background-color: $lime; color:$black;}
+.bg-yellow { background-color: $yellow; color:$black;}
+.bg-orange { background-color: $orange; color:$white;}
+.bg-red { background-color: $red; color:$white;}
+.bg-fuchsia { background-color: $fuchsia; color:$white;}
+.bg-purple { background-color: $purple; color:$white;}
+.bg-maroon { background-color: $maroon; color:$white;}
+.bg-white { background-color: $white; color:$black;}
+.bg-gray { background-color: $gray; color:$white;}
+.bg-silver { background-color: $silver; color:$black;}
+.bg-black { background-color: $black; color:$white;}
+/* Colors */
+.navy { color: $navy }
+.blue { color: $blue }
+.aqua { color: $aqua }
+.teal { color: $teal }
+.olive { color: $olive }
+.green { color: $green; }
+.lime { color: $lime; }
+.yellow { color: $yellow; }
+.orange { color: $orange; }
+.red { color: $red; }
+.fuchsia { color: $fuchsia; }
+.purple { color: $purple; }
+.maroon { color: $maroon; }
+.white { color: $white; }
+.silver { color: $silver; }
+.gray { color: $gray; }
+.black { color: $black; }
+/* Border colors 
+
+   Use with another border utility that sets border-width and style 
+   i.e .border { border-width: 1px); border-style: solid); }     
+*/
+.border--navy { border-color: $navy }
+.border--blue { border-color: $blue }
+.border--aqua { border-color: $aqua }
+.border--teal { border-color: $teal }
+.border--olive { border-color: $olive }
+.border--green { border-color: $green; }
+.border--lime { border-color: $lime; }
+.border--yellow { border-color: $yellow; }
+.border--orange { border-color: $orange; }
+.border--red { border-color: $red; }
+.border--fuchsia { border-color: $fuchsia; }
+.border--purple { border-color: $purple; }
+.border--maroon { border-color: $maroon; }
+.border--white { border-color: $white; }
+.border--gray { border-color: $gray; }
+.border--silver { border-color: $silver; }
+.border--black { border-color: $black; }
+/* Fills for SVG */
+.fill-navy { fill: $navy }
+.fill-blue { fill: $blue }
+.fill-aqua { fill: $aqua }
+.fill-teal { fill: $teal }
+.fill-olive { fill: $olive }
+.fill-green { fill: $green; }
+.fill-lime { fill: $lime; }
+.fill-yellow { fill: $yellow; }
+.fill-orange { fill: $orange; }
+.fill-red { fill: $red; }
+.fill-fuchsia { fill: $fuchsia; }
+.fill-purple { fill: $purple; }
+.fill-maroon { fill: $maroon; }
+.fill-white { fill: $white; }
+.fill-gray { fill: $gray; }
+.fill-silver { fill: $silver; }
+.fill-black { fill: $black; }
+/* Strokes for SVG */
+.stroke-navy { stroke: $navy }
+.stroke-blue { stroke: $blue }
+.stroke-aqua { stroke: $aqua }
+.stroke-teal { stroke: $teal }
+.stroke-olive { stroke: $olive }
+.stroke-green { stroke: $green; }
+.stroke-lime { stroke: $lime; }
+.stroke-yellow { stroke: $yellow; }
+.stroke-orange { stroke: $orange; }
+.stroke-red { stroke: $red; }
+.stroke-fuchsia { stroke: $fuchsia; }
+.stroke-purple { stroke: $purple; }
+.stroke-maroon { stroke: $maroon; }
+.stroke-white { stroke: $white; }
+.stroke-gray { stroke: $gray; }
+.stroke-silver { stroke: $silver; }
+.stroke-black { stroke: $black; }
+
+.bg-approved{
+    background-color:#dff0d8;
+}
+
+.bg-changes{
+    background-color:#f2dede;
+}

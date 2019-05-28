@@ -1,0 +1,14 @@
+<div id="mySidenav" class="notificationPanel" [ngStyle]="navStyle">
+	<button (click)="onCloseNav()" class="nav-close btn btn-danger">
+		<span class='glyphicon glyphicon-remove-sign lg-glyph'></span>
+	</button> 
+    
+     <div *ngFor="let item of _notify.notifications" class="items-list">
+	    <alert type="info" [dismissible]="true" (onClosed)="onRemoveNotification(item)">
+	        <h4 class="list-group-item-heading" [innerHtml]="item.title"></h4>
+	        <p class="list-group-item-text" [innerHtml]="item.message"></p>
+	    </alert>
+	</div>
+
+
+</div>

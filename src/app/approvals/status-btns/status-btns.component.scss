@@ -1,0 +1,61 @@
+@import "../../../_vars";
+
+#status-btns{
+	margin-bottom: 0;
+}
+
+.btn{
+	padding:0 10px;
+	height: 32px;
+	font-size:12px;
+
+	&:hover {
+        color: #fff;
+    }
+}
+
+.pre-approved {
+	padding: 6px;
+	color: #fff;
+    background-color: $turquoise;
+    cursor: not-allowed;
+}
+
+
+.btn-approved {
+    @include border-radius(0px);
+    width: 100%;
+}
+
+.btn-changes {
+    @include border-radius(0px);
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+
+	#status-btns{
+		margin-bottom: 20px;
+	}
+
+	.btn-block{
+		width:350px;
+	}
+
+    .btn{
+		padding:6px 12px;
+		height: auto;
+		font-size:14px;
+	}
+
+	.btn-approved {
+		@include border-radius(2px);
+		width: 150px;
+	}
+
+	.btn-changes {
+		width: 150px;
+		@include border-radius(2px);
+	}
+
+}

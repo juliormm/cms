@@ -1,0 +1,31 @@
+<div class="container-flow" *ngIf="_shared.valid">
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+            <h3 class="title">Instructions for reviewing creative:</h3>
+            <ul class="bullets">
+                <li><p>Navigate and preview all creative units requested from <span class="mobile"><span class="glyphicon glyphicon-menu-hamburger"></span> above </span><span class="desktop">side bar</span> or below arrow navigation</p></li>
+                <li><p><span class="approve"><strong>Approve</strong></span> creative unit if no changes need to be made</p></li>
+                <li><p>Click <span class="changes"><strong><span class="desktop">Request</span> Change</strong></span> to request changes to creative unit. A text box will appear that allows you to make notes for changes. <em>Comments should be for current creative unit only</em></p></li>
+                <li><p>After all creative units have been reviewed you will be prompted to <span class="orange"><strong>Submit All</strong></span><sup>*</sup></p></li>
+            </ul>
+        </div>
+       
+    </div>
+    <div class="row end-page">
+        <div class="col-xs-6 col-xs-offset-3">
+            <button class="btn btn-success center-block" (click)="onStart()">START</button>
+        </div>
+    </div>
+</div>
+
+<div class="container-flow" *ngIf="!_shared.valid">
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1">
+            <h3 class="title">Your revision could not be found</h3>
+            <h4>Please contact us to provide you with the correct URL.</h4>
+            <h4>Thank You.</h4>
+        </div>
+    </div>
+    <div class="row end-page">
+    </div>
+</div>

@@ -1,0 +1,6 @@
+<div class="input-group" [ngStyle]="setStyle">
+    <input class="form-control" ngx-mydatepicker readonly [(ngModel)]="model" [options]="dateOptions" #dp="ngx-mydatepicker" (dateChanged)="onDateChanged($event)" >
+    <div class="input-group-btn">
+        <button type="button" class="btn btn-default" (click)="dp.toggleCalendar()"><span class="glyphicon glyphicon-calendar"></span></button>
+    </div>
+</div>

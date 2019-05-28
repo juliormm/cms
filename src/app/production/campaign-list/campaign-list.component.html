@@ -1,0 +1,178 @@
+<div class="container-fluid">
+  <div class="row submenu-tools">
+    <div class="col-sm-12">
+      <!-- search -->
+      <div class="form-inline">
+        <div class="form-group well well-sm">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search for..." [(ngModel)]="searchBox">
+            <span class="input-group-btn"> <button class="btn btn-default" type="button" (click)="searchBox=''">Clear</button></span>
+          </div>
+        </div>
+               <ng-container *ngIf="userInfo.app_metadata.group !='theorem-creative'">
+          <!-- manager -->
+          <div class="form-group well well-sm" *ngIf="userInfo.app_metadata.group !='theorem-creative'">
+            <span class="glyphicon glyphicon-user"></span>
+            <select id="manager-list" [(ngModel)]="sortConfig.manager" (change)="onChangeManager()" class="form-control">
+              <!-- <option value="" selected disabled>Filter by Manager</option> -->
+              <option value="all">All</option>
+              <option [value]="item.name" *ngFor="let item of _lists.MANAGERS">{{item.name}}</option>
+              <option value="QA">QA</option>
+              <option value="Theorem">Theorem</option>
+            </select>
+          </div>
+          <!-- hidden -->
+          <div class="form-group well well-sm">
+            <button class="btn btn-sm btn-primary top-tool" [(ngModel)]="sortConfig.showHidden" (click)="toggleHidden()" btnCheckbox> <span *ngIf="!sortConfig.showHidden">Show</span> <span *ngIf="sortConfig.showHidden">Hide</span> Hidden</button>
+          </div>
+          <!-- AE list -->
+          <div class="form-group well well-sm">
+            AE <span class="badge"><span class="glyphicon glyphicon-usd"></span></span>
+            <select id="ae_list" [(ngModel)]="ae_filter" (change)="onAEchange()" class="form-control">
+              <option value="all">All</option>
+              <option [value]="item" *ngFor="let item of aeList">{{item}}</option>
+            </select>
+          </div>
+        </ng-container>
+        <!-- auto refresh -->
+        <div class="form-group well well-sm">
+          <div class="form-inline force-inline">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" name="auto-refresh" (change)="updatePolling()" [(ngModel)]="sortConfig.refresh"> Auto-refresh
+              </label>
+            </div>
+            <div class="form-group">
+              <select [(ngModel)]="sortConfig.refreshInterval" (change)="updatePolling()" class="form-control">
+                <option value="5">5 min</option>
+                <option value="10">10 min</option>
+                <option value="15">15 min</option>
+                <option value="20">20 min</option>
+                <option value="30">30 min</option>
+              </select>
+            </div>
+          </div>
+        </div>
+ 
+      </div>
+    </div>
+  </div>
+  <!-- LIST  -->
+  <div class="row">
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped production">
+        <thead class="thead-inverse">
+          <tr>
+            <th class="camp-index"></th>
+            <th class="campaing">
+              <div>
+                <button class="btn btn-info btn-sm" [ngClass]="activeSort(sortCampaignByUser)" (click)="onSortStrings(sortCampaignByUser, sortParentByUser)"> Campaign <span *ngIf="sortConfig.sortBy == sortCampaignByUser" class="glyphicon" [ngClass]="getSortClass(sortCampaignByUser)"></span></button>
+              </div>
+            </th>
+            <th class="due_date">
+              <div>
+                <button class="btn btn-info btn-sm" [ngClass]="activeSort('client_due')" (click)="onSortStrings('client_due', 'production')"> {{dueDateStartDate}}<span *ngIf="sortConfig.sortBy == 'client_due'" class="glyphicon" [ngClass]="getSortClass('client_due')"></span></button>
+              </div>
+            </th>
+            <th class="camp-status">
+              <div>
+                <button class="btn btn-info btn-sm" [ngClass]="activeSort('project_status')" (click)="onSortStrings('project_status', 'production')"> Status <span *ngIf="sortConfig.sortBy == 'project_status'" class="glyphicon" [ngClass]="getSortClass('project_status')"></span></button>
+              </div>
+            </th>
+            <th class="camp-links">Links</th>
+            <th class="camp-notes" [ngClass]="{
+            'camp-notes-lg': userInfo.app_metadata.group =='hyfn-creative',
+            'camp-notes': userInfo.app_metadata.group =='theorem-creative' || userInfo.app_metadata.group =='admin' }">Notes</th>
+            <th class="camp-revs">
+              <div>
+                <button class="btn btn-info btn-sm" [ngClass]="activeSort('global_status')" (click)="onSortStrings('global_status', 'rev_status')"> Revision <span *ngIf="sortConfig.sortBy == 'global_status'" class="glyphicon" [ngClass]="getSortClass('global_status')"></span></button>
+              </div>
+            </th>
+            <th class="camp-team" *ngIf="userInfo.app_metadata.is_admin || userInfo.app_metadata.group =='theorem-creative'">
+              <div>
+                <button class="btn btn-info btn-sm" [ngClass]="activeSort('designer')" (click)="onSortStrings('designer', 'production')"> Internal Team <span *ngIf="sortConfig.sortBy == 'designer'" class="glyphicon" [ngClass]="getSortClass('designer')"></span></button>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let camp of trackData | hideCampaigns:sortConfig.showHidden | filterManager:sortConfig.manager:'manager' | filterName:searchBox | filterManager:ae_filter:'ae'; let idx=index;" [ngClass]="{'hidden-row': camp.hidden == 1 }">
+            <td>
+              {{idx + 1}}
+            </td>
+            <td>
+              <div>
+                <a tooltip="{{camp.data.client.client_name}} | {{camp.data.campaign_name}}" placement="right" [routerLink]="[ '../', 'campaign',camp.data.campaign_id] "> {{camp.data.server_name}} </a>
+              </div>
+              <div>
+                <ng-container *ngIf="userInfo.app_metadata.group !='theorem-creative'">
+                  <button class="btn btn-primary btn-xs" (click)="hideRow(camp.id, camp.hidden)">
+                    <span *ngIf="!camp.hidden">Hide</span>
+                    <span *ngIf="camp.hidden">Show</span>
+                  </button>
+                </ng-container>
+                <ng-container *ngIf="userInfo.app_metadata.group == 'theorem-creative'">
+                  <button class="btn btn-primary btn-xs" (click)="hideRow(camp.id, camp.hidden)">Close Campaign</button>
+                </ng-container>
+              </div>
+            </td>
+            <td class="date" [ngClass]="colorDateClass(camp.date, camp.data.production.project_status)">
+              <span class="due_today"><strong>{{camp.date | date: 'EEE MMM d' }} </strong></span>
+            </td>
+            <td>
+              <select class="form-control" [ngClass]="_lists.getStatusClass(camp.data.production.project_status, _lists.PROD_STATUS)" [(ngModel)]="camp.data.production.project_status" name="status" (change)="onChangeStatus(camp.data.campaign_id, 'project_status', $event.target.value)">
+                <option value="">Please Select</option>
+                <option *ngFor="let item of _lists.PROD_STATUS" [value]="item.status" [attr.selected]="camp.data.production.project_status===undefined ? true : null">{{item.status}}</option>
+              </select>
+            </td>
+            <td>
+              <a class="btn btn-primary btn-xs" *ngIf="camp.data.production.phnx_task" href="{{camp.data.production.phnx_task}} " target="_blank ">PHNX</a>
+              <ng-container *ngIf="userInfo.app_metadata.group !='theorem-creative'">
+                <a class="btn btn-info btn-xs" href="http://rmm.companyworkflow.com/#/projects/{{camp.data.tw_id}}/overview/summary " target="_blank ">TeamWork</a>
+                <br>
+              </ng-container>
+            </td>
+            <td>
+              <textarea (blur)="onNotesBlur(camp.data.campaign_id, $event)" (focus)="lockPolling()" [(ngModel)]="camp.notes" class="form-control" rows="2"></textarea>
+            </td>
+            <td>
+              <button *ngIf="camp.data.rev_status.revision > 0" class="btn" type="button" (click)="selectRev(camp.data.campaign_id, camp.data.rev_status.revision)" [ngClass]="_status.getBtnStatus(camp.data.rev_status.global_status)">
+                <span class="badge">{{camp.data.rev_status.revision}} </span> {{camp.data.rev_status.global_status}}
+              </button>
+            </td>
+            <td *ngIf="userInfo.app_metadata.is_admin || userInfo.app_metadata.group =='theorem-creative'">
+              <table class="table table-bordered nomargin designer">
+                <tr>
+                  <td class="name">
+                    <!-- {{camp.data.production.designer}} -->
+                    <select class="form-control" [(ngModel)]="camp.data.production.designer" (change)="onChangeStatus(camp.data.campaign_id, 'designer', $event.target.value)">
+                      <option value="">Please Select</option>
+                      <ng-container *ngIf="userInfo.app_metadata.group !='theorem-creative'">
+                        <option *ngFor="let item of _lists.DESINGERS" [value]="item.name">{{item.name}}</option>
+                      </ng-container>
+                      <option *ngFor="let item of _lists.THEOREM_TEAM" [value]="item.name">{{item.name}}</option>
+                    </select>
+                  </td>
+                  <td class="status">
+                    <select class="form-control" [ngClass]="_lists.getStatusClass(camp.data.production.internal_status, _lists.INTERNAL_STATUS)" [(ngModel)]="camp.data.production.internal_status" name="status" (change)="onChangeStatus(camp.data.campaign_id, 'internal_status', $event.target.value)">
+                      <option value="null" disabled selected> -- Select -- </option>
+                      <!-- <ng-container *ngIf="userInfo.app_metadata.group !='theorem-creative'"> -->
+                      <option *ngFor="let item of _lists.INTERNAL_STATUS" [value]="item.status">{{item.status}}</option>
+                      <!-- </ng-container> -->
+                      <!--     <ng-container *ngIf="userInfo.app_metadata.group !='theorem-creative'">
+                          <option *ngFor="let item of _lists.INTERNAL_STATUS" [value]="item.status">{{item.status}}</option>
+                       </ng-container> -->
+                    </select>
+                  </td>
+                  <!-- <td class="date">
+                    <base-date-picker [width]="150" [inDate]="camp.data.production.internal_due" (outDate)="dateChanged(camp.data.campaign_id, $event)"></base-date-picker>
+                  </td> -->
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,135 @@
+@import "../../../_vars";
+
+// @import "/node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+#approvals-container {
+    background-color: $light-gray;
+    color: $dark-gray;
+    font-family: $primary-font;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#approval-submit {
+    top: auto;
+    bottom: 23px;
+    left: 0;
+    z-index: 9999999;
+    position: absolute;
+    width: 100%;
+    .btn {
+        width: 100%;
+        @include border-radius(0);
+    }
+}
+
+:host /deep/ label {
+    margin-bottom: 0;
+}
+
+:host /deep/ .btn {
+    padding: 0px 10px;
+    border-radius: 2px;
+    line-height: 30px;
+    
+    border: none;
+    outline: none;
+    @include transition-duration(0.2s);
+    &.active.focus,
+    &.active:focus,
+    &.focus,
+    &:active.focus,
+    &:active:focus,
+    &:focus {
+        outline: none;
+        outline-offset: 0;
+    }
+}
+
+:host /deep/ .primary-font {
+    font-family: $primary-font;
+    font-size: 16px;
+}
+
+:host /deep/ .secondary-font {
+    font-family: $secondary-font;
+    font-size: 14px;
+}
+
+:host /deep/ .italic {
+    font-style: italic;
+}
+
+:host /deep/ .glyphicon-remove {
+    color: $light-red;
+}
+
+:host /deep/ .inline-block {
+    display: inline-block;
+}
+
+:host /deep/ .btn-red {
+    color: #fff;
+    background-color: $light-red;
+    &:hover {
+        color: #fff;
+        background-color: darken($light-red, 10%);
+    }
+    &:active {
+        background-color: $light-red;
+    }
+}
+
+:host /deep/ .btn-blue {
+    color: #fff;
+    background-color: $turquoise;
+    &:hover {
+        color: #fff;
+        background-color: darken($turquoise, 10%);
+    }
+    &:active {
+        background-color: $turquoise;
+    }
+}
+
+
+:host /deep/ .btn-transparent {
+    background-color: transparent;
+    &:hover,
+    &:focus {
+        background-color: transparent;
+    }
+    &:active {
+        background-color: transparent;
+    }
+}
+
+
+
+
+:host /deep/ #overpage .alert-base-position{
+    top:40px;
+}
+
+
+
+@media (min-width: 768px) {
+    #approval-submit {
+        top: 63px;
+        bottom: auto;
+        left: 0;
+        width: 150px;
+        .btn {
+            @include border-radius(4px);
+        }
+    }
+
+    :host /deep/ #overpage .alert-base-position{
+        top:0;
+        width:100%;
+        .items-list{
+            width:50%;
+            margin:0 auto;
+        }
+    }
+}

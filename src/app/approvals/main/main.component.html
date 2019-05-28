@@ -1,0 +1,15 @@
+<div id="approvals-container" >
+    <approval-header [menuOpen]=mobileMenuOpen (toggleNav)="onToggleMobileMenu()"></approval-header>
+    <approval-display-panel></approval-display-panel>
+    <preview-nav [crvTypeList]=navItems [active]=activeCreative.prv_crv_id [menuOpen]=mobileMenuOpen (changeCreativeRequest)="onChangeCreative($event)"></preview-nav>
+    <preview-foot-nav (arrowRequest)="onArrowClick($event)"></preview-foot-nav>
+    <preview-creative-notes></preview-creative-notes>
+    
+    <approval-modal (submitOption)="modalResponse($event)" [showModal]=displayModal></approval-modal>
+   
+</div>
+<div id="overpage">
+	<app-lin-alert></app-lin-alert>
+	<lin-loading></lin-loading>
+</div>
+

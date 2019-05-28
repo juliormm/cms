@@ -1,0 +1,54 @@
+@import "../../../_vars";
+.demo {
+    position: fixed;
+    z-index: $demoIndex;
+    color: #FFFFFF;
+}
+
+.bottomright{
+    bottom: 0;
+    right: 0;
+}
+
+.topleft{
+    top:0;
+    left:0;
+}
+
+
+.demo-text {
+    padding: 2px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.triangle-bottomright {
+    width: 0;
+    height: 0;
+    border-bottom: 50px solid red;
+    border-left: 50px solid transparent;
+}
+
+.triangle-topleft {
+    width: 0;
+    height: 0;
+    border-top: 50px solid red;
+    border-right: 50px solid transparent;
+}
+
+
+@media (min-width: 768px) {
+    .demo-text {
+        padding: 10px;
+    }
+
+    .triangle-bottomright {
+        border-bottom: 100px solid red;
+        border-left: 100px solid transparent;
+    }
+
+    .triangle-topleft {
+        border-top: 100px solid red;
+        border-right: 100px solid transparent;
+    }
+}

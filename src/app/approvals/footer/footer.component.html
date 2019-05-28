@@ -1,0 +1,32 @@
+<div id="approval-footer" class="navbar-fixed-bottom">
+  <div class="container-fluid nopadding">
+    <approval-submit-revision class="hidden-sm hidden-md hidden-lg"></approval-submit-revision>
+    <div class="row nomargin">
+      <!-- [ngClass]="{'col-xs-2':_shared.isSelected, 'col-xs-6':!_shared.isSelected}" -->
+      <div class="col-sm-2 col-xs-2 nopadding">
+        <div class="text-center">
+          <button type="button" class="btn btn-arrow" (click)="onPrev()" [attr.disabled]="disableRight ? true : null"><span class="glyphicon glyphicon-arrow-left"></span></button>
+        </div>
+      </div>
+      <div class="hidden-xs col-sm-8">
+        <div class="text-center show-arrows" [ngClass]="{'active':_shared.isSelected}">
+          <div class="primary-font italic campaign-info-key inline-block footer-text">Viewing Ad Unit:</div>
+          <div class="secondary-font inline-block footer-text">
+            <span *ngIf="dataItem.size != '0'"> {{dataItem.size}} </span>
+            <span *ngIf="dataItem.size == '0'"> {{dataItem.type}} </span>
+            <span class="custom_name" *ngIf="dataItem.custom_name">
+              - {{dataItem.custom_name}}
+            </span>
+          </div>
+        </div>
+      </div>
+      <!-- [ngClass]="{'col-xs-2':_shared.isSelected, 'col-xs-6':!_shared.isSelected}" -->
+      <div class="col-sm-2 col-xs-2 nopadding">
+        <div class="text-center">
+          <button type="button" class="btn btn-arrow" (click)="onNext()" [attr.disabled]="disableLeft ? true : null"><span class="glyphicon glyphicon-arrow-right"></span></button>
+        </div>
+      </div>
+      <status-btns class="hidden-sm hidden-md hidden-lg"></status-btns>
+    </div>
+  </div>
+</div>

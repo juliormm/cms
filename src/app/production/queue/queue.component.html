@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row">
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped production">
+        <thead class="thead-inverse">
+          <tr>
+            <th> ID </th>
+            <th> Client </th>
+            <th> Date Added </th>
+            <th> Client Due Date </th>
+            <th> Account Manager </th>
+            <th> Account Executive </th>
+            <th> PHNX </th>
+            <th *ngIf="userData.app_metadata.is_admin"> Group </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let camp of trackData | priorityQueue; let idx=index;" [ngClass]="{'danger': camp.priority == 3, 'warning': camp.priority == 2}">
+            <td> <a [routerLink]="['/', 'dashboard', 'production', 'campaign', camp.campaign_id]"> {{camp.campaign_id}} </a></td>
+            <td> {{camp.client_name}} </td>
+            <td> {{camp.start_date | date : 'short'}} </td>
+            <td> {{camp.client_due | date}} </td>
+            <td> {{camp.am_name}} </td>
+            <td> {{camp.ae_name}} </td>
+            <td>
+              <ng-container *ngIf="camp.phnx_id > 1000">
+                <a href="https://phnx.fm/tasks/?filter[object_class]=Campaign&filter[object_id]={{camp.phnx_id}}" target="_blank">{{camp.phnx_id}}</a>
+              </ng-container>
+              <ng-container *ngIf="camp.phnx_id < 1000">
+                {{camp.phnx_id}}
+              </ng-container>
+            </td>
+            <td *ngIf="userData.app_metadata.is_admin"> {{camp.team}} </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

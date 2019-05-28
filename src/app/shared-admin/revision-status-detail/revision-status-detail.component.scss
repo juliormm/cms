@@ -1,0 +1,39 @@
+.col-status{
+	min-width:104px;
+}
+
+.col-name{
+	
+}
+
+.col-params{
+	max-width:100px;
+}
+
+
+.col-notes{
+	width:50%;
+}
+
+.lg-glyph{
+	font-size:30px;	
+}
+
+.btn{
+	line-height:1;
+	padding:6px 6px;
+	margin-bottom:5px;
+}
+
+textarea {
+    resize: none;
+}
+
+.form-control[disabled].bg-approved {
+	    background-color: #dff0d8;
+}
+
+
+.form-control[disabled].bg-changes {
+    background-color: #f2dede;
+}
